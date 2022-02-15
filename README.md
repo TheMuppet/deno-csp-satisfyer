@@ -1,2 +1,2 @@
-# Deno-CSP
-Constraint Programming Solver for Deno
+# Deno-CSP-Solver
+Constraint-Satisfaction-Problem Solver for Deno
