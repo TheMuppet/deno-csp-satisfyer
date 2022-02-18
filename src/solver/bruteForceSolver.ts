@@ -1,22 +1,31 @@
 import { arb_set } from "../utils.ts";
 export { solve };
+import { SolutionProcessor } from "../solutionProcessors.ts";
 
-function solve(csp: [Set<string>, Set<number | string>, Set<string>]) {
+function solve(
+  csp: [Set<string>, Set<number | string>, Set<string>],
+  solutionProcessor?: SolutionProcessor,
+) {
   let [variables, values, constraints] = csp;
   let assign = {};
   let unassignedVars = new Set(variables);
-  return bruteForceSearch(assign, unassignedVars, csp);
+  return bruteForceSearch(assign, unassignedVars, csp, solutionProcessor);
 }
 
 function bruteForceSearch(
   assignment: {},
   unassignedVars: Set<string>,
   csp: [Set<string>, Set<number | string>, Set<string>],
+  solutionProcessor?: SolutionProcessor,
 ) {
   let [variables, values, constraints] = csp;
   if (Object.keys(assignment).length == variables.size) {
     if (checkAllConstraints(assignment, constraints)) {
-      return assignment;
+      if (solutionProcessor) {
+        solutionProcessor.processSolution(assignment);
+      } else {
+        return assignment;
+      }
     }
     return null;
   }
@@ -25,7 +34,12 @@ function bruteForceSearch(
   for (let value of values) {
     let newAssignment: any = { ...assignment };
     newAssignment[variable] = value;
-    let result: any = bruteForceSearch(newAssignment, unassignedVars, csp);
+    let result: any = bruteForceSearch(
+      newAssignment,
+      unassignedVars,
+      csp,
+      solutionProcessor,
+    );
     if (result) {
       return result;
     }
