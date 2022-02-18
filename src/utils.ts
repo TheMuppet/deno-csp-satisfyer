@@ -6,3 +6,9 @@ export function arbitrary(array: Array<string>) {
 export function collect_variables(expression: string) {
   return expression.match(/[a-z_]\w*(?!\w*\s*\()/ig);
 }
+export function arb_set(set: Set<any>) {
+  for  (let e of set){
+    return e
+  }
+  
+}
