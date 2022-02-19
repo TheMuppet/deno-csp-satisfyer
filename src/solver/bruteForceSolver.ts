@@ -5,7 +5,10 @@ import { CSP } from "./CSP.ts";
 import { tassignment } from "./assignment.ts";
 
 // deno-lint-ignore no-unused-vars
-function checkAllConstraints(assignment: tassignment, constraints: Set<string>) {
+function checkAllConstraints(
+  assignment: tassignment,
+  constraints: Set<string>,
+) {
   for (const con of constraints) {
     if (!eval(con)) {
       return false;
