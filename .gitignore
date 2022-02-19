@@ -1,3 +1,6 @@
 
 .idea/
 .vscode/
+play.ts
+enable/registries/https/*
+registries/https/*
