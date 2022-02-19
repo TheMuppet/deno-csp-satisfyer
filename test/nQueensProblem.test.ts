@@ -8,7 +8,5 @@ Deno.test({
     const n = 8;
     const sol = solve(nQueensProblemCSP(n));
     assertNotEquals(sol, {});
-    console.log("\n Solution: ");
-    console.log(sol);
   },
 });
