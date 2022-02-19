@@ -2,9 +2,11 @@ import { arb_set } from "../utils.ts";
 export { solve };
 import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP } from "./CSP.ts";
+import { assignment } from "./assignment.ts";
 
-function checkAllConstraints(assignment: {}, constraints: Set<string>) {
-  for (let con of constraints) {
+
+function checkAllConstraints(assignment: assignment, constraints: Set<string>) {
+  for (const con of constraints) {
     if (!eval(con)) {
       return false;
     }
@@ -13,11 +15,11 @@ function checkAllConstraints(assignment: {}, constraints: Set<string>) {
 }
 
 function bruteForceSearch(
-  assignment: {},
+  assignment: assignment,
   unassignedVars: Set<string>,
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
-) {
+): assignment | null {
   if (Object.keys(assignment).length == csp.variables.size) {
     if (checkAllConstraints(assignment, csp.constraints)) {
       if (solutionProcessor) {
@@ -31,9 +33,9 @@ function bruteForceSearch(
   const variable = arb_set(unassignedVars);
   unassignedVars.delete(variable);
   for (const value of csp.values) {
-    const newAssignment: any = { ...assignment };
+    const newAssignment: assignment = { ...assignment };
     newAssignment[variable] = value;
-    const result: any = bruteForceSearch(
+    const result: assignment | null = bruteForceSearch(
       newAssignment,
       unassignedVars,
       csp,
@@ -44,6 +46,7 @@ function bruteForceSearch(
     }
   }
   unassignedVars.add(variable);
+  return null
 }
 
 function solve(
