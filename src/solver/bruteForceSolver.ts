@@ -2,10 +2,10 @@ import { arb_set } from "../utils.ts";
 export { solve };
 import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP } from "./CSP.ts";
-import { assignment } from "./assignment.ts";
+import { tassignment } from "./assignment.ts";
 
 // deno-lint-ignore no-unused-vars
-function checkAllConstraints(assignment: assignment, constraints: Set<string>) {
+function checkAllConstraints(assignment: tassignment, constraints: Set<string>) {
   for (const con of constraints) {
     if (!eval(con)) {
       return false;
@@ -15,11 +15,11 @@ function checkAllConstraints(assignment: assignment, constraints: Set<string>) {
 }
 
 function bruteForceSearch(
-  assignment: assignment,
+  assignment: tassignment,
   unassignedVars: Set<string>,
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
-): assignment | null {
+): tassignment | null {
   if (Object.keys(assignment).length == csp.variables.size) {
     if (checkAllConstraints(assignment, csp.constraints)) {
       if (solutionProcessor) {
@@ -33,9 +33,9 @@ function bruteForceSearch(
   const variable = arb_set(unassignedVars);
   unassignedVars.delete(variable);
   for (const value of csp.values) {
-    const newAssignment: assignment = { ...assignment };
+    const newAssignment: tassignment = { ...assignment };
     newAssignment[variable] = value;
-    const result: assignment | null = bruteForceSearch(
+    const result: tassignment | null = bruteForceSearch(
       newAssignment,
       unassignedVars,
       csp,

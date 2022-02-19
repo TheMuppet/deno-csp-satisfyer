@@ -1,3 +1,3 @@
-export type assignment = {
+export type tassignment = {
   [key: string]: number | string;
 };

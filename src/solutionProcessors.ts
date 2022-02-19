@@ -1,11 +1,11 @@
-import { assignment } from "./solver/assignment.ts";
+import { tassignment } from "./solver/assignment.ts";
 export interface SolutionProcessor {
-  processSolution(assignment: assignment): void;
+  processSolution(assignment: tassignment): void;
 }
 
 export const allSolProc = {
   allSolutions: new Set(),
-  processSolution: function (assignment: assignment) {
+  processSolution: function (assignment: tassignment) {
     this.allSolutions.add(assignment);
   },
 };
