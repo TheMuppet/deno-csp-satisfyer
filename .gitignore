@@ -4,3 +4,5 @@
 play.ts
 enable/registries/https/*
 registries/https/*
+
+.DS_Store
