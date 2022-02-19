@@ -5,10 +5,10 @@ import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
 Deno.test({
   name: "Test Brute Force Solver on n-Queens Problem ",
   fn: () => {
-    let n = 8;
-    let sol = solve(nQueensProblemCSP(n));
+    const n = 8;
+    const sol = solve(nQueensProblemCSP(n));
     assertNotEquals(sol, {});
-    console.log('\n Solution: ')
-    console.log(sol)
+    console.log("\n Solution: ");
+    console.log(sol);
   },
 });
