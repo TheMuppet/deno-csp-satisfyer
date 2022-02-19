@@ -11,6 +11,9 @@ export function arb_set(set: Set<any>) { //skipcq: JS-0323
     return e;
   }
 }
-export function allSolutions(assignment: {[key: string]: number | string}, allSolutions: Set<{[key: string]: number | string}>) {
+export function allSolutions(
+  assignment: assignment,
+  allSolutions: Set<assignment>,
+) {
   allSolutions.add(assignment);
 }

@@ -4,7 +4,6 @@ import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP } from "./CSP.ts";
 import { assignment } from "./assignment.ts";
 
-
 function checkAllConstraints(assignment: assignment, constraints: Set<string>) {
   for (const con of constraints) {
     if (!eval(con)) {
@@ -46,7 +45,7 @@ function bruteForceSearch(
     }
   }
   unassignedVars.add(variable);
-  return null
+  return null;
 }
 
 function solve(

@@ -1,3 +1,3 @@
 export type assignment = {
-    [key: string]: number | string
-  }
+  [key: string]: number | string;
+};
