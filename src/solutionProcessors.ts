@@ -1,3 +1,4 @@
+import { assignment } from "./solver/assignment.ts";
 export interface SolutionProcessor {
   processSolution(assignment: assignment): void;
 }
