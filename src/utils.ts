@@ -1,4 +1,4 @@
-import { tassignment } from "../src/solver/assignment.ts";
+import { t_assignment } from "./solver/assignment.ts";
 
 export function arbitrary(array: Array<string>) {
   const random = Math.floor(Math.random() * array.length);
@@ -15,8 +15,8 @@ export function arb_set(set: Set<any>) { //skipcq: JS-0323
   }
 }
 export function allSolutions(
-  assignment: tassignment,
-  allSolutions: Set<tassignment>,
+  assignment: t_assignment,
+  allSolutions: Set<t_assignment>,
 ) {
   allSolutions.add(assignment);
 }
