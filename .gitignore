@@ -4,3 +4,4 @@
 enable/registries/*
 registries/*
 play.ts
+.DS_Store
