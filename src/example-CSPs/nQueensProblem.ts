@@ -1,3 +1,4 @@
+import { CSP } from "../solver/CSP.ts";
 export function nQueensProblemCSP(n: number) {
   const variables = new Set(Array.from({ length: n }, (_, i) => `V${i + 1}`));
   const values = new Set(Array.from({ length: n }, (_, i) => i + 1));
@@ -12,10 +13,10 @@ export function nQueensProblemCSP(n: number) {
       }
     }
   }
-  const csp: [Set<string>, Set<number | string>, Set<string>] = [
-    variables,
-    values,
-    constraints,
-  ];
+  const csp: CSP = {
+    variables: variables,
+    values: values,
+    constraints: constraints,
+  };
   return csp;
 }
