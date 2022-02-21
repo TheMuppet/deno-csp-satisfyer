@@ -4,7 +4,7 @@ import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP } from "./CSP.ts";
 import { t_assignment } from "./assignment.ts";
 
-function checkAllConstraints(
+export function checkAllConstraints(
   // deno-lint-ignore no-unused-vars
   assignment: t_assignment,
   constraints: Set<string>,

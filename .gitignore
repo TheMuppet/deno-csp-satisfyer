@@ -1,8 +1,7 @@
 
 .idea/
 .vscode/
+enable/registries/*
+registries/*
 play.ts
-enable/registries/https/*
-registries/https/*
-
 .DS_Store
