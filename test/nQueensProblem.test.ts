@@ -7,7 +7,7 @@ Deno.test({
   fn: () => {
     const n = 3;
     const sol = solve(nQueensProblemCSP(n));
-    assertEquals(null, <any> sol);
+    assertEquals(null, sol);
   },
 });
 
@@ -21,6 +21,6 @@ Deno.test({
       "V2": 1,
       "V3": 4,
       "V4": 2,
-    }], <any> sol);
+    }], [sol]);
   },
 });
