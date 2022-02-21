@@ -1,5 +1,5 @@
 import { solve } from "../src/solver/bruteForceSolver.ts";
-import { assertEquals, assertArrayIncludes } from "../deps.ts";
+import { assertArrayIncludes, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
 
 Deno.test({
@@ -7,7 +7,7 @@ Deno.test({
   fn: () => {
     const n = 3;
     const sol = solve(nQueensProblemCSP(n));
-    assertEquals(null, <any>sol);
+    assertEquals(null, <any> sol);
   },
 });
 
@@ -16,6 +16,11 @@ Deno.test({
   fn: () => {
     const n = 4;
     const sol = solve(nQueensProblemCSP(n));
-    assertArrayIncludes([{'V1': 2, 'V2': 4, 'V3': 1, 'V4': 3 }, {'V1': 3, 'V2': 1, 'V3': 4, 'V4': 2 }], <any>sol);
+    assertArrayIncludes([{ "V1": 2, "V2": 4, "V3": 1, "V4": 3 }, {
+      "V1": 3,
+      "V2": 1,
+      "V3": 4,
+      "V4": 2,
+    }], <any> sol);
   },
 });
