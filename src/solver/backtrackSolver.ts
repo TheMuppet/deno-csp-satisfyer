@@ -4,9 +4,25 @@ import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP, CSPwithVars } from "./CSP.ts";
 import { t_assignment } from "./assignment.ts";
 
-function solve(csp: CSP, solutionProcessor?: SolutionProcessor) {
-  const unassignedVars: Set<string> = new Set(csp.variables);
-  return backtrack({}, unassignedVars, getCSPwithVars(csp), solutionProcessor);
+function isConsistent(
+  variable: string,
+  value: string | number,
+  oldAssignment: t_assignment,
+  constraints: Set<[string, Set<string>]>,
+) {
+  const assignment = { ...oldAssignment };
+  assignment[variable] = value;
+  for (const [cons, vars] of constraints) {
+    if (
+      vars.has(variable) &&
+      Array.from(vars).every((val) => new Set(Object.keys(assignment)).has(val))
+    ) {
+      if (!(eval(cons))) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 function backtrack(
@@ -44,23 +60,7 @@ function backtrack(
   return null;
 }
 
-function isConsistent(
-  variable: string,
-  value: string | number,
-  oldAssignment: t_assignment,
-  constraints: Set<[string, Set<string>]>,
-) {
-  const assignment = { ...oldAssignment };
-  assignment[variable] = value;
-  for (const [cons, vars] of constraints) {
-    if (
-      vars.has(variable) &&
-      Array.from(vars).every((val) => new Set(Object.keys(assignment)).has(val))
-    ) {
-      if (!(eval(cons))) {
-        return false;
-      }
-    }
-  }
-  return true;
+function solve(csp: CSP, solutionProcessor?: SolutionProcessor) {
+  const unassignedVars: Set<string> = new Set(csp.variables);
+  return backtrack({}, unassignedVars, getCSPwithVars(csp), solutionProcessor);
 }
