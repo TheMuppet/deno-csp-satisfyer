@@ -5,6 +5,7 @@ import { CSP } from "./CSP.ts";
 import { t_assignment } from "./assignment.ts";
 
 export function checkAllConstraints(
+  // assignment is needed for eval function and not unused
   // deno-lint-ignore no-unused-vars
   assignment: t_assignment,
   constraints: Set<string>,
