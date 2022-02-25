@@ -34,7 +34,7 @@ function bruteForceSearch(
     return null;
   }
   const variable = arbitrary(unassignedVars);
-  unassignedVars = unassignedVars.filter(obj => obj !== variable);
+  unassignedVars = unassignedVars.filter((obj) => obj !== variable);
   for (const value of csp.values) {
     const newAssignment: t_assignment = { ...assignment };
     newAssignment[variable] = value;

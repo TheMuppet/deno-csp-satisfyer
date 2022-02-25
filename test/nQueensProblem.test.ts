@@ -1,7 +1,7 @@
 import { solve as solve_array } from "../src/solver/bruteForceSolver_array.ts";
-import { solve as solve_set} from "../src/solver/bruteForceSolver_set.ts";
+import { solve as solve_set } from "../src/solver/bruteForceSolver_set.ts";
 import { assert, assertArrayIncludes, assertEquals } from "../deps.ts";
-import { nQueensProblemCSP as CSP_set} from "../src/example-CSPs/nQueensProblem_set.ts";
+import { nQueensProblemCSP as CSP_set } from "../src/example-CSPs/nQueensProblem_set.ts";
 import { nQueensProblemCSP as CSP_array } from "../src/example-CSPs/nQueensProblem_array.ts";
 import { checkAllConstraints as checkConstraints_set } from "../src/solver/bruteForceSolver_set.ts";
 import { checkAllConstraints as checkConstraints_array } from "../src/solver/bruteForceSolver_array.ts";
