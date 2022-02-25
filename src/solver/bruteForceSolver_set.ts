@@ -1,7 +1,7 @@
 import { arb_set } from "../utils.ts";
 export { solve };
 import { SolutionProcessor } from "../solutionProcessors.ts";
-import { CSP } from "./CSP.ts";
+import { CSP } from "./CSP_set.ts";
 import { t_assignment } from "./assignment.ts";
 
 export function checkAllConstraints(
