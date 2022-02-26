@@ -4,7 +4,7 @@ import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP, CSPwithVars } from "./CSP.ts";
 import { t_assignment } from "./assignment.ts";
 
-function isConsistent(
+export function isConsistent(
   variable: string,
   value: string | number,
   oldAssignment: t_assignment,
