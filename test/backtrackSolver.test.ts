@@ -40,7 +40,7 @@ Deno.test({
   fn: () => {
     const cons = getCSPwithVars(nQueensProblemCSP(4)).constraints;
     const assignment = { "V1": 2, "V2": 4, "V3": 1 };
-    const result = isConsistent("V4", 3, assignment, cons,);
+    const result = isConsistent("V4", 3, assignment, cons);
     assert(result);
   },
 });
