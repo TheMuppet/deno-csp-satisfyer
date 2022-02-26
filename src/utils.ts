@@ -20,3 +20,17 @@ export function allSolutions(
 ) {
   allSolutions.add(assignment);
 }
+
+export function preprocess_constraints(
+  variables: Set<string>,
+  constraints: Set<string>,
+) {
+  const new_constraints = new Set<string>();
+  constraints.forEach(function (constraint) {
+    variables.forEach(function (variable) {
+      constraint = constraint.replace(variable, `assignment["${variable}"]`);
+    });
+    new_constraints.add(constraint);
+  });
+  return new_constraints;
+}
