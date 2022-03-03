@@ -1,4 +1,5 @@
 import { t_assignment } from "./solver/assignment.ts";
+import { CSP, CSPwithVars } from "./solver/CSP.ts";
 
 export function arbitrary(array: Array<string>) {
   const random = Math.floor(Math.random() * array.length);
@@ -33,4 +34,23 @@ export function preprocess_constraints(
     new_constraints.add(constraint);
   });
   return new_constraints;
+export function collectVariables(expression: string) {
+  return new Set(expression.match(/(?<=assignment\[")(\S)+(?=("\]))/ig));
+}
+export function getConstraintVariables(expressions: Set<string>) {
+  const constraintsWithVars: Set<[string, Set<string>]> = new Set();
+  for (const cons of expressions) {
+    constraintsWithVars.add([cons, collectVariables(cons)]);
+  }
+  return constraintsWithVars;
+}
+
+export function getCSPwithVars(csp: CSP) {
+  const newCons = getConstraintVariables(csp.constraints);
+  const cspVars: CSPwithVars = {
+    variables: csp.variables,
+    values: csp.values,
+    constraints: newCons,
+  };
+  return cspVars;
 }

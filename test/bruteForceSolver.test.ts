@@ -2,6 +2,7 @@ import { solve } from "../src/solver/bruteForceSolver.ts";
 import { assert, assertArrayIncludes, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
+import { allSolProc } from "../src/solutionProcessors.ts";
 Deno.test({
   name: "Test Brute Force Solver on 3-Queens Problem ",
   fn: () => {
@@ -11,7 +12,7 @@ Deno.test({
   },
 });
 Deno.test({
-  name: "Test Brute Force Solver on 3-Queens Problem ",
+  name: "Test Brute Force Solver on 6-Queens Problem ",
   fn: () => {
     const n = 6;
     const csp = nQueensProblemCSP(n);
@@ -35,5 +36,20 @@ Deno.test({
       "V3": 4,
       "V4": 2,
     }], [sol]);
+  },
+});
+Deno.test({
+  name: "Test Brute Force Solver on 4-Queens Problem with All Solution",
+  fn: () => {
+    const n = 4;
+    const solProc = allSolProc;
+    const csp = nQueensProblemCSP(n);
+    solve(csp, solProc);
+    console.log(solProc.allSolutions);
+    if (solProc.allSolutions) {
+      assert(solProc.allSolutions.size);
+    } else {
+      assert(false);
+    }
   },
 });
