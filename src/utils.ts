@@ -31,7 +31,7 @@ export function prepare_constraints_for_eval(
   constraints.forEach(function (constraint) {
     variables.forEach(function (variable) {
       const regex = new RegExp(
-        `(?<=[^\w^']|^)${variable}(?=[^\w^'^(]|$)`,
+        `(?<=[^\w^'"]|^)${variable}(?=[^\w^'"^(]|$)`,
         "g",
       );
       constraint = constraint.replace(regex, `assignment['${variable}']`);
@@ -53,7 +53,7 @@ export function preprocess_csp(
 }
 
 export function collectVariables(expression: string) {
-  return new Set(expression.match(/(?<=assignment\[')(\S)+(?=('\]))/ig));
+  return new Set(expression.match(/(?<=assignment\[["'])(\S)+(?=(["']\]))/ig));
 }
 
 export function getConstraintVariables(expressions: Set<string>) {
