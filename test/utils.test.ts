@@ -50,3 +50,11 @@ Deno.test({
     assertEquals(["x", "y"], vars);
   },
 });
+const a = {
+  "hans": "asd",
+  "asd": "em",
+  "peter": "a",
+};
+Object.keys(a);
+const c = new Set(["asd", "peter", "hans", "lol"]);
+console.log(Array.from(c).filter((val) => !(Object.keys(a).includes(val))));
