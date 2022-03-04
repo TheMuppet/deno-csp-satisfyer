@@ -15,6 +15,7 @@ export function arb_set(set: Set<any>) { //skipcq: JS-0323
     return e;
   }
 }
+
 export function allSolutions(
   assignment: t_assignment,
   allSolutions: Set<t_assignment>,
@@ -29,14 +30,21 @@ export function preprocess_constraints(
   const new_constraints = new Set<string>();
   constraints.forEach(function (constraint) {
     variables.forEach(function (variable) {
-      constraint = constraint.replace(variable, `assignment["${variable}"]`);
+      const regex = new RegExp(
+        `(?<=[^\w^']|^)${variable}(?=[^\w^'^(]|$)`,
+        "g",
+      );
+      constraint = constraint.replace(regex, `assignment['${variable}']`);
     });
     new_constraints.add(constraint);
   });
   return new_constraints;
+}
+
 export function collectVariables(expression: string) {
   return new Set(expression.match(/(?<=assignment\[")(\S)+(?=("\]))/ig));
 }
+
 export function getConstraintVariables(expressions: Set<string>) {
   const constraintsWithVars: Set<[string, Set<string>]> = new Set();
   for (const cons of expressions) {
