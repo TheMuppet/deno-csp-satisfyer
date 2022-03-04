@@ -23,7 +23,7 @@ export function allSolutions(
   allSolutions.add(assignment);
 }
 
-export function preprocess_constraints(
+export function prepare_constraints_for_eval(
   variables: Set<string>,
   constraints: Set<string>,
 ) {
@@ -39,6 +39,17 @@ export function preprocess_constraints(
     new_constraints.add(constraint);
   });
   return new_constraints;
+}
+
+export function preprocess_csp(
+  csp: CSP,
+) {
+  const preprocessed_csp: CSP = {
+    variables: csp.variables,
+    values: csp.values,
+    constraints: prepare_constraints_for_eval(csp.variables, csp.constraints),
+  };
+  return preprocessed_csp;
 }
 
 export function collectVariables(expression: string) {

@@ -1,10 +1,10 @@
 import { assertEquals } from "../deps.ts";
-import { preprocess_constraints } from "../src/utils.ts";
+import { prepare_constraints_for_eval } from "../src/utils.ts";
 
 Deno.test({
-  name: "Preprocessing variable to value",
+  name: "Constraint variable to value",
   fn: () => {
-    const constraints = preprocess_constraints(
+    const constraints = prepare_constraints_for_eval(
       new Set(["A"]),
       new Set(["A = 1"]),
     );
@@ -13,9 +13,9 @@ Deno.test({
 });
 
 Deno.test({
-  name: "Preprocessing variable to variable",
+  name: "Constraint variable to variable",
   fn: () => {
-    const constraints = preprocess_constraints(
+    const constraints = prepare_constraints_for_eval(
       new Set(["A", "B"]),
       new Set(["A = B"]),
     );
@@ -24,9 +24,9 @@ Deno.test({
 });
 
 Deno.test({
-  name: "Preprocessing expression to variable",
+  name: "Constraint expression to variable",
   fn: () => {
-    const constraints = preprocess_constraints(
+    const constraints = prepare_constraints_for_eval(
       new Set(["A", "B"]),
       new Set(["A + B = 2"]),
     );
@@ -38,9 +38,9 @@ Deno.test({
 });
 
 Deno.test({
-  name: "Preprocessing variable to homonymous value",
+  name: "Constraint variable to homonymous value",
   fn: () => {
-    const constraints = preprocess_constraints(
+    const constraints = prepare_constraints_for_eval(
       new Set(["A"]),
       new Set(["A = 'A'"]),
     );
@@ -52,9 +52,9 @@ Deno.test({
 });
 
 Deno.test({
-  name: "Preprocessing variable to homonymous function",
+  name: "Constraint variable to homonymous function",
   fn: () => {
-    const constraints = preprocess_constraints(
+    const constraints = prepare_constraints_for_eval(
       new Set(["A"]),
       new Set(["A = A(x)"]),
     );
@@ -66,10 +66,10 @@ Deno.test({
 });
 
 Deno.test({
-  name: "Preprocessing multiple constraints",
+  name: "Constraint multiple constraints",
   fn: () => {
     const constraints = new Set(["A = B", "A = 1", "A + B = C", "C = 2"]);
-    const processed_constraints = preprocess_constraints(
+    const processed_constraints = prepare_constraints_for_eval(
       new Set(["A", "B", "C"]),
       constraints,
     );
