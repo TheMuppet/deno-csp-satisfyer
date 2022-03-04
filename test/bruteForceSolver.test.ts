@@ -3,6 +3,7 @@ import { assert, assertArrayIncludes, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
 import { allSolProc } from "../src/solutionProcessors.ts";
+import { prepare_constraints_for_eval } from "../src/utils.ts";
 Deno.test({
   name: "Test Brute Force Solver on 3-Queens Problem ",
   fn: () => {
@@ -18,7 +19,12 @@ Deno.test({
     const csp = nQueensProblemCSP(n);
     const sol = solve(csp);
     if (sol) {
-      assert(checkAllConstraints(sol, csp.constraints));
+      assert(
+        checkAllConstraints(
+          sol,
+          prepare_constraints_for_eval(csp.variables, csp.constraints),
+        ),
+      );
     } else {
       assert(false);
     }

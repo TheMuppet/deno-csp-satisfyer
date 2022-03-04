@@ -3,6 +3,7 @@ export { solve };
 import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP } from "./CSP.ts";
 import { t_assignment } from "./assignment.ts";
+import { preprocess_csp } from "../utils.ts";
 
 export function checkAllConstraints(
   // assignment is needed for eval function and not unused
@@ -57,6 +58,12 @@ function solve(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ) {
+  const preprocessed_csp: CSP = preprocess_csp(csp);
   const unassignedVars: Set<string> = new Set(csp.variables);
-  return bruteForceSearch({}, unassignedVars, csp, solutionProcessor);
+  return bruteForceSearch(
+    {},
+    unassignedVars,
+    preprocessed_csp,
+    solutionProcessor,
+  );
 }

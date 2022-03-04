@@ -3,6 +3,7 @@ export { solve };
 import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP, CSPwithVars } from "./CSP.ts";
 import { t_assignment } from "./assignment.ts";
+import { preprocess_csp } from "../utils.ts";
 
 export function isConsistent(
   variable: string,
@@ -61,6 +62,12 @@ function backtrack(
 }
 
 function solve(csp: CSP, solutionProcessor?: SolutionProcessor) {
+  const preprocessed_csp: CSP = preprocess_csp(csp);
   const unassignedVars: Set<string> = new Set(csp.variables);
-  return backtrack({}, unassignedVars, getCSPwithVars(csp), solutionProcessor);
+  return backtrack(
+    {},
+    unassignedVars,
+    getCSPwithVars(preprocessed_csp),
+    solutionProcessor,
+  );
 }
