@@ -25,6 +25,7 @@ export function allSolutions(
 export function collectVariables(expression: string) {
   return new Set(expression.match(/(?<=assignment\[")(\S)+(?=("\]))/ig));
 }
+
 export function getConstraintVariables(expressions: Set<string>) {
   const constraintsWithVars: Set<[string, Set<string>]> = new Set();
   for (const cons of expressions) {
