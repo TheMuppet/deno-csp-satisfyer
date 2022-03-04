@@ -3,7 +3,6 @@ import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
 import { allSolProc } from "../src/solutionProcessors.ts";
 import { isConsistent, solve } from "../src/solver/backtrackSolver.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
-import { preprocess_csp } from "../src/utils.ts";
 import { getCSPwithVars } from "../src/utils.ts";
 import { prepare_constraints_for_eval } from "../src/utils.ts";
 
