@@ -3,24 +3,26 @@ import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
 import { allSolProc } from "../src/solutionProcessors.ts";
 import { isConsistent, solve } from "../src/solver/backtrackSolver.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
+import { preprocess_csp } from "../src/utils.ts";
 import { getCSPwithVars } from "../src/utils.ts";
+import { prepare_constraints_for_eval } from "../src/utils.ts";
 
 Deno.test({
-  name: "Test Brute Force Solver on 8-Queens Problem ",
+  name: "Test Backtrack Solver on 8-Queens Problem ",
   fn: () => {
     const n = 8;
     const csp = nQueensProblemCSP(n);
     const sol = solve(csp);
     //console.log(sol);
     if (sol) {
-      assert(checkAllConstraints(sol, csp.constraints));
+      assert(checkAllConstraints(sol, prepare_constraints_for_eval(csp.variables, csp.constraints)));
     } else {
       assert(false);
     }
   },
 });
 Deno.test({
-  name: "Test Brute Force Solver on 8-Queens Problem with All Solution",
+  name: "Test Backtrack Solver on 8-Queens Problem with All Solution",
   fn: () => {
     const n = 8;
     const solProc = allSolProc;
