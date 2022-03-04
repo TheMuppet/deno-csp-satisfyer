@@ -3,7 +3,7 @@ export { solve };
 import { SolutionProcessor } from "../solutionProcessors.ts";
 import { CSP, CSPwithVars } from "./CSP.ts";
 import { t_assignment } from "./assignment.ts";
-import { preprocess_csp } from "../utils";
+import { preprocess_csp } from "../utils.ts";
 
 export function isConsistent(
   variable: string,
