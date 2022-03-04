@@ -53,7 +53,7 @@ export function preprocess_csp(
 }
 
 export function collectVariables(expression: string) {
-  return new Set(expression.match(/(?<=assignment\[")(\S)+(?=("\]))/ig));
+  return new Set(expression.match(/(?<=assignment\[')(\S)+(?=('\]))/ig));
 }
 
 export function getConstraintVariables(expressions: Set<string>) {
