@@ -19,7 +19,12 @@ Deno.test({
     const csp = nQueensProblemCSP(n);
     const sol = solve(csp);
     if (sol) {
-      assert(checkAllConstraints(sol, prepare_constraints_for_eval(csp.variables, csp.constraints)));
+      assert(
+        checkAllConstraints(
+          sol,
+          prepare_constraints_for_eval(csp.variables, csp.constraints),
+        ),
+      );
     } else {
       assert(false);
     }
