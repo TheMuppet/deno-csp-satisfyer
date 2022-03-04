@@ -15,6 +15,7 @@ export function arb_set(set: Set<any>) { //skipcq: JS-0323
     return e;
   }
 }
+
 export function allSolutions(
   assignment: t_assignment,
   allSolutions: Set<t_assignment>,
@@ -22,9 +23,39 @@ export function allSolutions(
   allSolutions.add(assignment);
 }
 
-export function collectVariables(expression: string) {
-  return new Set(expression.match(/(?<=assignment\[")(\S)+(?=("\]))/ig));
+export function prepare_constraints_for_eval(
+  variables: Set<string>,
+  constraints: Set<string>,
+) {
+  const new_constraints = new Set<string>();
+  constraints.forEach(function (constraint) {
+    variables.forEach(function (variable) {
+      const regex = new RegExp(
+        `(?<=[^\w^'"]|^)${variable}(?=[^\w^'"^(]|$)`,
+        "g",
+      );
+      constraint = constraint.replace(regex, `assignment['${variable}']`);
+    });
+    new_constraints.add(constraint);
+  });
+  return new_constraints;
 }
+
+export function preprocess_csp(
+  csp: CSP,
+) {
+  const preprocessed_csp: CSP = {
+    variables: csp.variables,
+    values: csp.values,
+    constraints: prepare_constraints_for_eval(csp.variables, csp.constraints),
+  };
+  return preprocessed_csp;
+}
+
+export function collectVariables(expression: string) {
+  return new Set(expression.match(/(?<=assignment\[["'])(\S)+(?=(["']\]))/ig));
+}
+
 export function getConstraintVariables(expressions: Set<string>) {
   const constraintsWithVars: Set<[string, Set<string>]> = new Set();
   for (const cons of expressions) {
