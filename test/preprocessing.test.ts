@@ -76,3 +76,16 @@ Deno.test({
     assertEquals(constraints.size, processed_constraints.size);
   },
 });
+Deno.test({
+  name: "Constraint with overlapping Name",
+  fn: () => {
+    const constraints = prepare_constraints_for_eval(
+      new Set(["A", "A10"]),
+      new Set(["A = A10"]),
+    );
+    assertEquals(
+      constraints,
+      new Set(["assignment['A'] = assignment['A10']"]),
+    );
+  },
+});
