@@ -1,4 +1,4 @@
-import { assert } from "../deps.ts";
+import { assert, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
 import { allSolProc } from "../src/solutionProcessors.ts";
 import { isConsistent, solve } from "../src/solver/backtrackSolver.ts";
@@ -34,7 +34,7 @@ Deno.test({
     solve(csp, solProc);
     //console.log(solProc.allSolutions)
     if (solProc.allSolutions) {
-      assert(solProc.allSolutions.size == 92);
+      assertEquals(solProc.allSolutions.size, 92);
     } else {
       assert(false);
     }
