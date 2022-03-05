@@ -31,7 +31,7 @@ export function prepare_constraints_for_eval(
   constraints.forEach(function (constraint) {
     variables.forEach(function (variable) {
       const regex = new RegExp(
-        `(?<=[^\w^'"]|^)${variable}(?=[^\w^'"^(]|$)`,
+        `(?<=[^\\w'"]|^)${variable}(?=[^\\w'"^(]|$)`,
         "g",
       );
       constraint = constraint.replace(regex, `assignment['${variable}']`);
