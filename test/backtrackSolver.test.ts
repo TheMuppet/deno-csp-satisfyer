@@ -1,5 +1,5 @@
 import { assert } from "../deps.ts";
-import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
+import { nQueensProblemCSP } from "../example-CSPs/nQueensProblem.ts";
 import { allSolProc } from "../src/solutionProcessors.ts";
 import { isConsistent, solve } from "../src/solver/backtrackSolver.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";

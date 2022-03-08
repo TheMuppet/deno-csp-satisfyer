@@ -3,7 +3,7 @@ import { assertEquals } from "../deps.ts";
 import {
   equationSystemCSP,
   equationSystemCSPmultipleSol,
-} from "../src/example-CSPs/EquationSystem.ts";
+} from "../example-CSPs/EquationSystem.ts";
 import { allSolProc } from "../src/solutionProcessors.ts";
 Deno.test({
   name: "Test Brute Force Solver",
