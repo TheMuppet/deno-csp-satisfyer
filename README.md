@@ -2,8 +2,10 @@
 
 ## About
 
-Deno-CSP-Solver is a module that allows you to solve problems that satisfy given constraints to a problem. Those problems are so-called Constraint-Satisfaction-Problems (CSP).
-This module includes several solvers to fit your use case.
+Deno-CSP-Solver is a module that allows you to solve problems that satisfy given
+constraints to a problem. Those problems are so-called
+Constraint-Satisfaction-Problems (CSP). This module includes several solvers to
+fit your use case.
 
 - Brute-Force-Solver
 - Backtrack-Solver
@@ -11,7 +13,10 @@ This module includes several solvers to fit your use case.
 
 ## Example
 
-Import the solver of your choice using `mod.ts` and define your problem using the CSP type. A CSP is constructed using a dictionary with `variables`, `values` and `constraints` as keys, and its corresponding values as a set of `strings`. Values can also be defined as a set of `numbers`.  
+Import the solver of your choice using `mod.ts` and define your problem using
+the CSP type. A CSP is constructed using a dictionary with `variables`, `values`
+and `constraints` as keys, and its corresponding values as a set of `strings`.
+Values can also be defined as a set of `numbers`.\
 The solver takes the CSP as a parameter and returns the solution.
 
 ### 8-Queens-Problem as CSP and calling a solver:
@@ -43,5 +48,4 @@ const csp: CSP = {
 };
 
 const solution = solve(csp);
-
 ```
