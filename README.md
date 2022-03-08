@@ -4,7 +4,7 @@
 
 Deno-CSP-Solver is a module that allows you to solve problems that satisfy given
 constraints to a problem. Those problems are so-called
-Constraint-Satisfaction-Problems (CSP). This module includes several solvers to
+[Constraint-Satisfaction-Problems](https://en.wikipedia.org/wiki/Constraint_satisfaction_problem) (CSP). This module includes several solvers to
 fit your use case.
 
 - Brute-Force-Solver
