@@ -127,7 +127,6 @@ Deno.test({
     const solProc = allSolProc;
     const csp = nQueensProblemCSP(n);
     solve(csp, solProc);
-    //console.log(solProc.allSolutions)
     if (solProc.allSolutions) {
       assertEquals(solProc.allSolutions.size, 92);
     } else {
