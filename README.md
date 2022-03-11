@@ -5,7 +5,7 @@
 ## About
 
 Satisfyer is a Deno module that allows you to solve a so-called
-[Constraint-Satisfaction-Problems](https://en.wikipedia.org/wiki/Constraint_satisfaction_problem)
+[Constraint-Satisfaction-Problem](https://en.wikipedia.org/wiki/Constraint_satisfaction_problem)
 (CSP). This module includes several solvers to fit your use case.
 
 - Brute-Force-Solver
