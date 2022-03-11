@@ -1,13 +1,11 @@
 import { getCSPwithVars, preprocess_csp } from "../utils.ts";
-import { SolutionProcessor } from "../solutionProcessors.ts";
-import { CSP, CSPwithVars } from "./CSP.ts";
-import { t_assignment } from "./assignment.ts";
+import { CSP, CSPwithVars, t_assignment, SolutionProcessor } from "./typesInterfaces.ts";
 export {
   applyUnaryCons,
   getValuesPerVar,
   mostConstraintedVariable,
   propagate,
-  solve,
+  solveConstraintPropagation,
   splitUnaryCons,
 };
 function mostConstraintedVariable(
@@ -151,7 +149,10 @@ function getValuesPerVar(csp: CSP) {
   return valuePerVars;
 }
 
-function solve(csp: CSP, solutionProcessor?: SolutionProcessor) {
+function solveConstraintPropagation(
+  csp: CSP,
+  solutionProcessor?: SolutionProcessor,
+) {
   const preprocessed_csp: CSP = preprocess_csp(csp);
   const unassignedVars: Set<string> = new Set(preprocessed_csp.variables);
   let valuesPerVar: { [key: string]: Set<number | string> } = getValuesPerVar(

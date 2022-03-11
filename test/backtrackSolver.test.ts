@@ -1,8 +1,9 @@
 import { assert, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
-import { allSolProc } from "../src/solutionProcessors.ts";
-import { isConsistent, solve } from "../src/solver/backtrackSolver.ts";
+import { allSolProc } from "../src/solver/typesInterfaces.ts";
+import { isConsistent } from "../src/solver/backtrackSolver.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
+import { solve } from "../src/solver/solve.ts";
 import { getCSPwithVars } from "../src/utils.ts";
 import { prepare_constraints_for_eval } from "../src/utils.ts";
 import { preprocess_csp } from "../src/utils.ts";
@@ -12,7 +13,7 @@ Deno.test({
   fn: () => {
     const n = 8;
     const csp = nQueensProblemCSP(n);
-    const sol = solve(csp);
+    const sol = solve(csp, "backtrack");
     if (sol) {
       assert(
         checkAllConstraints(
@@ -31,7 +32,7 @@ Deno.test({
     const n = 8;
     const solProc = allSolProc;
     const csp = nQueensProblemCSP(n);
-    solve(csp, solProc);
+    solve(csp, "backtrack", solProc);
     //console.log(solProc.allSolutions)
     if (solProc.allSolutions) {
       assertEquals(solProc.allSolutions.size, 92);

@@ -1,8 +1,6 @@
 import { arb_set } from "../utils.ts";
-export { solve };
-import { SolutionProcessor } from "../solutionProcessors.ts";
-import { CSP } from "./CSP.ts";
-import { t_assignment } from "./assignment.ts";
+export { solveBruteForce };
+import { CSP, t_assignment, SolutionProcessor } from "./typesInterfaces.ts";
 import { preprocess_csp } from "../utils.ts";
 
 export function checkAllConstraints(
@@ -54,7 +52,7 @@ function bruteForceSearch(
   return null;
 }
 
-function solve(
+function solveBruteForce(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ) {

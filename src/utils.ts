@@ -1,5 +1,4 @@
-import { t_assignment } from "./solver/assignment.ts";
-import { CSP, CSPwithVars } from "./solver/CSP.ts";
+import { t_assignment, CSP, CSPwithVars } from "./solver/typesInterfaces.ts";
 
 export function arbitrary(array: Array<string>) {
   const random = Math.floor(Math.random() * array.length);

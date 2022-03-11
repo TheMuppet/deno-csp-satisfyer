@@ -1,17 +1,15 @@
 import { assert, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
-import { allSolProc } from "../src/solutionProcessors.ts";
-import { t_assignment } from "../src/solver/assignment.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
 import {
   applyUnaryCons,
   getValuesPerVar,
   mostConstraintedVariable,
   propagate,
-  solve,
+  solveConstraintPropagation,
   splitUnaryCons,
 } from "../src/solver/constraintPropagationSolver.ts";
-import { CSP, CSPwithVars } from "../src/solver/CSP.ts";
+import { CSP, CSPwithVars, allSolProc, t_assignment } from "../src/solver/typesInterfaces.ts";
 import {
   arb_set,
   getCSPwithVars,
@@ -105,7 +103,7 @@ Deno.test({
   fn: () => {
     const n = 8;
     const csp = nQueensProblemCSP(n);
-    const sol = solve(csp);
+    const sol = solveConstraintPropagation(csp);
     if (sol) {
       assert(
         checkAllConstraints(
@@ -125,7 +123,7 @@ Deno.test({
     const n = 8;
     const solProc = allSolProc;
     const csp = nQueensProblemCSP(n);
-    solve(csp, solProc);
+    solveConstraintPropagation(csp, solProc);
     if (solProc.allSolutions) {
       assertEquals(solProc.allSolutions.size, 92);
     } else {
