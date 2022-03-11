@@ -1,4 +1,4 @@
-import { arb_set } from "../utils.ts";
+import { arbSet } from "../utils.ts";
 export { solveBruteForce };
 import {
   Assignment,
@@ -7,14 +7,14 @@ import {
   SolutionProcessor,
   Variable,
 } from "./typesInterfaces.ts";
-import { preprocess_csp } from "../utils.ts";
+import { preprocessCsp } from "../utils.ts";
 
 export function checkAllConstraints(
   // assignment is needed for eval function so we need to ignore errors
   // deno-lint-ignore no-unused-vars
   assignment: Assignment,
   constraints: Set<Constraint>,
-) {
+): boolean {
   for (const con of constraints) {
     if (!eval(con)) {
       return false;
@@ -39,7 +39,7 @@ function bruteForceSearch(
     }
     return null;
   }
-  const variable = arb_set(unassignedVars);
+  const variable = arbSet(unassignedVars);
   unassignedVars.delete(variable);
   for (const value of csp.values) {
     const newAssignment: Assignment = { ...assignment };
@@ -61,8 +61,8 @@ function bruteForceSearch(
 function solveBruteForce(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
-) {
-  const preprocessed_csp: CSP = preprocess_csp(csp);
+): Assignment | null {
+  const preprocessed_csp: CSP = preprocessCsp(csp);
   const unassignedVars: Set<Variable> = new Set(csp.variables);
   return bruteForceSearch(
     {},

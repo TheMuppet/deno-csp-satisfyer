@@ -12,10 +12,10 @@ import {
 import { Assignment, CSP, CSPwithVars } from "../src/solver/typesInterfaces.ts";
 import { AllSolProc } from "../src/solutionProcessors.ts";
 import {
-  arb_set,
+  arbSet,
   getCSPwithVars,
-  prepare_constraints_for_eval,
-  preprocess_csp,
+  prepareConstraintsForEval,
+  preprocessCsp,
 } from "../src/utils.ts";
 
 const basicCSP: CSP = {
@@ -27,13 +27,13 @@ const basicCSP: CSP = {
     "A + B != C",
   ]),
 };
-const preprocessed_csp: CSP = preprocess_csp(basicCSP);
+const preprocessed_csp: CSP = preprocessCsp(basicCSP);
 const cspVars: CSPwithVars = getCSPwithVars(preprocessed_csp);
 Deno.test({
   name: "Test splitUnaryCons",
   fn: () => {
     const [unaryCons, otherCons] = splitUnaryCons(cspVars.constraints);
-    assertEquals(arb_set(unaryCons)[0], "assignment['A'] == 'C'");
+    assertEquals(arbSet(unaryCons)[0], "assignment['A'] == 'C'");
     const excpectedOtherCons = new Set([[
       "assignment['B'] == assignment['A']",
       new Set(["B", "A"]),
@@ -109,7 +109,7 @@ Deno.test({
       assert(
         checkAllConstraints(
           sol,
-          prepare_constraints_for_eval(csp.variables, csp.constraints),
+          prepareConstraintsForEval(csp.variables, csp.constraints),
         ),
       );
     } else {

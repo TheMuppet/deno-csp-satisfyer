@@ -1,4 +1,4 @@
-import { getCSPwithVars, preprocess_csp } from "../utils.ts";
+import { getCSPwithVars, preprocessCsp } from "../utils.ts";
 import {
   Assignment,
   ConstraintWithVars,
@@ -20,7 +20,7 @@ export {
 function mostConstraintedVariable(
   unassignedVars: Set<Variable>,
   valuePerVars: ValuePerVars,
-) {
+): Variable {
   let minVar = "";
   let minCount = Infinity;
   const valueCount: Array<[string, number]> = new Array(0);
@@ -41,7 +41,7 @@ function propagate(
   currentAssignment: Assignment,
   valuePerVars: ValuePerVars,
   constraints: Set<ConstraintWithVars>,
-) {
+): ValuePerVars | null {
   const newValues = { ...valuePerVars };
   newValues[variable] = new Set([value]);
   const assignmentWithVar = { ...currentAssignment };
@@ -119,7 +119,7 @@ function backtrack(
 function applyUnaryCons(
   unaryCons: Set<ConstraintWithVars>,
   valuePerVars: ValuePerVars,
-) {
+): ValuePerVars {
   const assignment: Assignment = {};
   for (const [constraint, variables] of unaryCons) {
     for (const variable of variables) {
@@ -135,7 +135,9 @@ function applyUnaryCons(
   return valuePerVars;
 }
 
-function splitUnaryCons(constraints: Set<ConstraintWithVars>) {
+function splitUnaryCons(
+  constraints: Set<ConstraintWithVars>,
+): [Set<ConstraintWithVars>, Set<ConstraintWithVars>] {
   const unaryCons: Set<ConstraintWithVars> = new Set();
   const otherCons: Set<ConstraintWithVars> = new Set();
   constraints.forEach(function (constraint) {
@@ -149,7 +151,7 @@ function splitUnaryCons(constraints: Set<ConstraintWithVars>) {
   return [unaryCons, otherCons];
 }
 
-function getValuesPerVar(csp: CSP) {
+function getValuesPerVar(csp: CSP): ValuePerVars {
   const valuePerVars: ValuePerVars = {};
   csp.variables.forEach(function (variable) {
     const cspVal = csp.values;
@@ -161,8 +163,8 @@ function getValuesPerVar(csp: CSP) {
 function solveConstraintPropagation(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
-) {
-  const preprocessed_csp: CSP = preprocess_csp(csp);
+): Assignment | null {
+  const preprocessed_csp: CSP = preprocessCsp(csp);
   const unassignedVars: Set<string> = new Set(preprocessed_csp.variables);
   let valuesPerVar: { [key: string]: Set<number | string> } = getValuesPerVar(
     preprocessed_csp,

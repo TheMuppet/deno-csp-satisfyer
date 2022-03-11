@@ -1,31 +1,36 @@
-import { Assignment, CSP, CSPwithVars } from "./solver/typesInterfaces.ts";
-
-export function arbitrary(array: Array<string>) {
+import {
+  Constraint,
+  ConstraintWithVars,
+  CSP,
+  CSPwithVars,
+  Variable,
+} from "./solver/typesInterfaces.ts";
+export {
+  arbitrary,
+  arbSet,
+  collectVariables,
+  getConstraintVariables,
+  getCSPwithVars,
+  prepareConstraintsForEval,
+  preprocessCsp,
+};
+function arbitrary(array: Array<string>): string {
   const random = Math.floor(Math.random() * array.length);
   return array[random];
 }
 
-export function collect_variables(expression: string) {
-  return expression.match(/[a-z_]\w*(?!\w*\s*\()/ig);
-}
+// function returns an element of a Set
 // deno-lint-ignore no-explicit-any
-export function arb_set(set: Set<any>) { //skipcq: JS-0323
+function arbSet(set: Set<any>): any { //skipcq: JS-0323
   for (const e of set) {
     return e;
   }
 }
 
-export function allSolutions(
-  assignment: Assignment,
-  allSolutions: Set<Assignment>,
-) {
-  allSolutions.add(assignment);
-}
-
-export function prepare_constraints_for_eval(
-  variables: Set<string>,
-  constraints: Set<string>,
-) {
+function prepareConstraintsForEval(
+  variables: Set<Variable>,
+  constraints: Set<Constraint>,
+): Set<Constraint> {
   const new_constraints = new Set<string>();
   constraints.forEach(function (constraint) {
     variables.forEach(function (variable) {
@@ -40,30 +45,32 @@ export function prepare_constraints_for_eval(
   return new_constraints;
 }
 
-export function preprocess_csp(
+function preprocessCsp(
   csp: CSP,
-) {
-  const preprocessed_csp: CSP = {
+): CSP {
+  const preprocessedCsp: CSP = {
     variables: csp.variables,
     values: csp.values,
-    constraints: prepare_constraints_for_eval(csp.variables, csp.constraints),
+    constraints: prepareConstraintsForEval(csp.variables, csp.constraints),
   };
-  return preprocessed_csp;
+  return preprocessedCsp;
 }
 
-export function collectVariables(expression: string) {
+function collectVariables(expression: Constraint): Set<Variable> {
   return new Set(expression.match(/(?<=assignment\[["'])(\S)+(?=(["']\]))/ig));
 }
 
-export function getConstraintVariables(expressions: Set<string>) {
-  const constraintsWithVars: Set<[string, Set<string>]> = new Set();
+function getConstraintVariables(
+  expressions: Set<string>,
+): Set<ConstraintWithVars> {
+  const constraintsWithVars: Set<ConstraintWithVars> = new Set();
   for (const cons of expressions) {
     constraintsWithVars.add([cons, collectVariables(cons)]);
   }
   return constraintsWithVars;
 }
 
-export function getCSPwithVars(csp: CSP) {
+function getCSPwithVars(csp: CSP): CSPwithVars {
   const newCons = getConstraintVariables(csp.constraints);
   const cspVars: CSPwithVars = {
     variables: csp.variables,

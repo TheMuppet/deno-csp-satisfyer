@@ -1,5 +1,5 @@
 import { assertArrayIncludes, assertEquals } from "../deps.ts";
-import { arbitrary, collect_variables } from "../src/utils.ts";
+import { arbitrary, collectVariables } from "../src/utils.ts";
 
 Deno.test({
   name: "arbitrary returns string from array",
@@ -11,42 +11,15 @@ Deno.test({
 
 Deno.test({
   name:
-    "collect_vars returns list of correct vars in expression with relational operators",
-  fn: () => {
-    let vars = collect_variables("x = y");
-    assertEquals(["x", "y"], vars);
-
-    vars = collect_variables("x != y");
-    assertEquals(["x", "y"], vars);
-
-    vars = collect_variables("x == y");
-    assertEquals(["x", "y"], vars);
-
-    vars = collect_variables("x <= y");
-    assertEquals(["x", "y"], vars);
-
-    vars = collect_variables("x >= y");
-    assertEquals(["x", "y"], vars);
-
-    vars = collect_variables("x > y");
-    assertEquals(["x", "y"], vars);
-
-    vars = collect_variables("x < y");
-    assertEquals(["x", "y"], vars);
-  },
-});
-
-Deno.test({
-  name:
     "collect_vars returns list of correct vars in expression with logical operators",
   fn: () => {
-    let vars = collect_variables("x ! y");
-    assertEquals(["x", "y"], vars);
+    let vars = collectVariables("assignment['x'] ! assignment['y']");
+    assertEquals(new Set(["x", "y"]), vars);
 
-    vars = collect_variables("x && y");
-    assertEquals(["x", "y"], vars);
+    vars = collectVariables("assignment['x'] && assignment['y']");
+    assertEquals(new Set(["x", "y"]), vars);
 
-    vars = collect_variables("x || y");
-    assertEquals(["x", "y"], vars);
+    vars = collectVariables("assignment['x'] || assignment['y']");
+    assertEquals(new Set(["x", "y"]), vars);
   },
 });
