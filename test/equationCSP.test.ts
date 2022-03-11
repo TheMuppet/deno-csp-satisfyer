@@ -20,7 +20,6 @@ Deno.test({
     const a = 2;
     const b = 3;
     solve(equationSystemCSPmultipleSol(a, b), allSolProc);
-    console.log(allSolProc.allSolutions);
     const sol = new Set([{ "a": a, "b": b }, { "a": b, "b": a }]);
     assertEquals(allSolProc.allSolutions, sol);
   },

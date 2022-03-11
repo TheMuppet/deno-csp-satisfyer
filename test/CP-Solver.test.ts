@@ -58,7 +58,7 @@ Deno.test({
   name: "Test Solve Unarys",
   fn: () => {
     const valuesPerVar = getValuesPerVar(basicCSP);
-    const [unaryCons, _] = splitUnaryCons(cspVars.constraints);
+    const unaryCons = splitUnaryCons(cspVars.constraints)[0];
     const valuesPerVarSolved = applyUnaryCons(unaryCons, valuesPerVar);
     assertEquals(valuesPerVarSolved["A"], new Set(["C"]));
     assertEquals(valuesPerVarSolved["B"], new Set(["C", "D"]));
@@ -68,7 +68,7 @@ Deno.test({
   name: "Test Most Constrainted Varialbe",
   fn: () => {
     const valuesPerVar = getValuesPerVar(basicCSP);
-    const [unaryCons, _] = splitUnaryCons(cspVars.constraints);
+    const unaryCons = splitUnaryCons(cspVars.constraints)[0];
     const valuesPerVarSolved = applyUnaryCons(unaryCons, valuesPerVar);
     const unassignedVars = new Set(["C", "B"]);
     const mCV = mostConstraintedVariable(unassignedVars, valuesPerVarSolved);
@@ -106,7 +106,6 @@ Deno.test({
     const n = 8;
     const csp = nQueensProblemCSP(n);
     const sol = solve(csp);
-    console.log(sol);
     if (sol) {
       assert(
         checkAllConstraints(

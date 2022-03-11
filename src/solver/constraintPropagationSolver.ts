@@ -132,7 +132,7 @@ function splitUnaryCons(constraints: Set<[string, Set<string>]>) {
   const unaryCons: Set<[string, Set<string>]> = new Set();
   const otherCons: Set<[string, Set<string>]> = new Set();
   constraints.forEach(function (constraint) {
-    const [_, vars] = constraint;
+    const vars = constraint[1];
     if (vars.size == 1) {
       unaryCons.add(constraint);
     } else {
@@ -140,6 +140,15 @@ function splitUnaryCons(constraints: Set<[string, Set<string>]>) {
     }
   });
   return [unaryCons, otherCons];
+}
+
+function getValuesPerVar(csp: CSP) {
+  const valuePerVars: { [key: string]: Set<number | string> } = {};
+  csp.variables.forEach(function (variable) {
+    const cspVal = csp.values;
+    valuePerVars[variable] = new Set(cspVal);
+  });
+  return valuePerVars;
 }
 
 function solve(csp: CSP, solutionProcessor?: SolutionProcessor) {
@@ -159,13 +168,4 @@ function solve(csp: CSP, solutionProcessor?: SolutionProcessor) {
     valuesPerVar,
     solutionProcessor,
   );
-}
-
-function getValuesPerVar(csp: CSP) {
-  const valuePerVars: { [key: string]: Set<number | string> } = {};
-  csp.variables.forEach(function (variable) {
-    const cspVal = csp.values;
-    valuePerVars[variable] = new Set(cspVal);
-  });
-  return valuePerVars;
 }
