@@ -51,7 +51,6 @@ Deno.test({
     const solProc = allSolProc;
     const csp = nQueensProblemCSP(n);
     solve(csp, solProc);
-    console.log(solProc.allSolutions);
     if (solProc.allSolutions) {
       assert(solProc.allSolutions.size);
     } else {
