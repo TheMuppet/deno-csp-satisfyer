@@ -1,4 +1,4 @@
-import { t_assignment, CSP, CSPwithVars } from "./solver/typesInterfaces.ts";
+import { Assignment, CSP, CSPwithVars } from "./solver/typesInterfaces.ts";
 
 export function arbitrary(array: Array<string>) {
   const random = Math.floor(Math.random() * array.length);
@@ -16,8 +16,8 @@ export function arb_set(set: Set<any>) { //skipcq: JS-0323
 }
 
 export function allSolutions(
-  assignment: t_assignment,
-  allSolutions: Set<t_assignment>,
+  assignment: Assignment,
+  allSolutions: Set<Assignment>,
 ) {
   allSolutions.add(assignment);
 }

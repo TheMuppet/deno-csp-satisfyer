@@ -1,6 +1,6 @@
 import { assert, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
-import { allSolProc } from "../src/solver/typesInterfaces.ts";
+import { AllSolProc } from "../src/solutionProcessors.ts";
 import { isConsistent } from "../src/solver/backtrackSolver.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
 import { solve } from "../src/solver/solve.ts";
@@ -30,7 +30,7 @@ Deno.test({
   name: "Test Backtrack Solver on 8-Queens Problem with All Solution",
   fn: () => {
     const n = 8;
-    const solProc = allSolProc;
+    const solProc = new AllSolProc();
     const csp = nQueensProblemCSP(n);
     solve(csp, "backtrack", solProc);
     //console.log(solProc.allSolutions)

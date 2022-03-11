@@ -2,7 +2,7 @@ import { solveBruteForce } from "../src/solver/bruteForceSolver.ts";
 import { assert, assertArrayIncludes, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
-import { allSolProc } from "../src/solver/typesInterfaces.ts";
+import { AllSolProc } from "../src/solutionProcessors.ts";
 import { prepare_constraints_for_eval } from "../src/utils.ts";
 Deno.test({
   name: "Test Brute Force Solver on 3-Queens Problem ",
@@ -48,7 +48,7 @@ Deno.test({
   name: "Test Brute Force Solver on 4-Queens Problem with All Solution",
   fn: () => {
     const n = 4;
-    const solProc = allSolProc;
+    const solProc = new AllSolProc();
     const csp = nQueensProblemCSP(n);
     solveBruteForce(csp, solProc);
     if (solProc.allSolutions) {

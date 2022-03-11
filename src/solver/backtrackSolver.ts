@@ -1,13 +1,21 @@
 import { arb_set, getCSPwithVars } from "../utils.ts";
 export { solveBacktrack };
-import { CSP, CSPwithVars, t_assignment, SolutionProcessor } from "./typesInterfaces.ts";
+import {
+  Assignment,
+  Constraint,
+  CSP,
+  CSPwithVars,
+  SolutionProcessor,
+  Value,
+  Variable,
+} from "./typesInterfaces.ts";
 import { preprocess_csp } from "../utils.ts";
 
 export function isConsistent(
-  variable: string,
-  value: string | number,
-  oldAssignment: t_assignment,
-  constraints: Set<[string, Set<string>]>,
+  variable: Variable,
+  value: Value,
+  oldAssignment: Assignment,
+  constraints: Set<[Constraint, Set<Variable>]>,
 ) {
   const assignment = { ...oldAssignment };
   assignment[variable] = value;
@@ -25,11 +33,11 @@ export function isConsistent(
 }
 
 function backtrack(
-  assignment: t_assignment,
-  unassignedVars: Set<string>,
+  assignment: Assignment,
+  unassignedVars: Set<Variable>,
   csp: CSPwithVars,
   solutionProcessor?: SolutionProcessor,
-): t_assignment | null {
+): Assignment | null {
   if (unassignedVars.size == 0) {
     if (solutionProcessor) {
       solutionProcessor.processSolution(assignment);
@@ -61,7 +69,7 @@ function backtrack(
 
 function solveBacktrack(csp: CSP, solutionProcessor?: SolutionProcessor) {
   const preprocessed_csp: CSP = preprocess_csp(csp);
-  const unassignedVars: Set<string> = new Set(csp.variables);
+  const unassignedVars: Set<Variable> = new Set(csp.variables);
   return backtrack(
     {},
     unassignedVars,

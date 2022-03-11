@@ -4,7 +4,7 @@ import {
   equationSystemCSP,
   equationSystemCSPmultipleSol,
 } from "../src/example-CSPs/EquationSystem.ts";
-import { allSolProc } from "../src/solver/typesInterfaces.ts";
+import { AllSolProc } from "../src/solutionProcessors.ts";
 Deno.test({
   name: "Test Brute Force Solver",
   fn: () => {
@@ -19,8 +19,9 @@ Deno.test({
   fn: () => {
     const a = 2;
     const b = 3;
-    solveBruteForce(equationSystemCSPmultipleSol(a, b), allSolProc);
+    const solProc = new AllSolProc();
+    solveBruteForce(equationSystemCSPmultipleSol(a, b), solProc);
     const sol = new Set([{ "a": a, "b": b }, { "a": b, "b": a }]);
-    assertEquals(allSolProc.allSolutions, sol);
+    assertEquals(solProc.allSolutions, sol);
   },
 });

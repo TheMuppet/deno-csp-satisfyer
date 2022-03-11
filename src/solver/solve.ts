@@ -1,8 +1,7 @@
-
 import { solveBacktrack } from "./backtrackSolver.ts";
 import { solveBruteForce } from "./bruteForceSolver.ts";
 import { solveConstraintPropagation } from "./constraintPropagationSolver.ts";
-import { CSP, SolutionProcessor} from "./typesInterfaces.ts";
+import { CSP, SolutionProcessor } from "./typesInterfaces.ts";
 export { solve };
 const sovlerObj = {
   "bruteforce": solveBruteForce,

@@ -9,7 +9,8 @@ import {
   solveConstraintPropagation,
   splitUnaryCons,
 } from "../src/solver/constraintPropagationSolver.ts";
-import { CSP, CSPwithVars, allSolProc, t_assignment } from "../src/solver/typesInterfaces.ts";
+import { Assignment, CSP, CSPwithVars } from "../src/solver/typesInterfaces.ts";
+import { AllSolProc } from "../src/solutionProcessors.ts";
 import {
   arb_set,
   getCSPwithVars,
@@ -80,7 +81,7 @@ Deno.test({
     const valuesPerVar = getValuesPerVar(basicCSP);
     const [unaryCons, otherCons] = splitUnaryCons(cspVars.constraints);
     const valuesPerVarSolved = applyUnaryCons(unaryCons, valuesPerVar);
-    const assignment: t_assignment = {};
+    const assignment: Assignment = {};
     const newValues = propagate(
       "A",
       "C",
@@ -121,7 +122,7 @@ Deno.test({
   name: "Test CP-Solver Solver on 8-Queens Problem with All Solution",
   fn: () => {
     const n = 8;
-    const solProc = allSolProc;
+    const solProc = new AllSolProc();
     const csp = nQueensProblemCSP(n);
     solveConstraintPropagation(csp, solProc);
     if (solProc.allSolutions) {

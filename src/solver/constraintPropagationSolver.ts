@@ -1,5 +1,14 @@
 import { getCSPwithVars, preprocess_csp } from "../utils.ts";
-import { CSP, CSPwithVars, t_assignment, SolutionProcessor } from "./typesInterfaces.ts";
+import {
+  Assignment,
+  ConstraintWithVars,
+  CSP,
+  CSPwithVars,
+  SolutionProcessor,
+  Value,
+  ValuePerVars,
+  Variable,
+} from "./typesInterfaces.ts";
 export {
   applyUnaryCons,
   getValuesPerVar,
@@ -9,8 +18,8 @@ export {
   splitUnaryCons,
 };
 function mostConstraintedVariable(
-  unassignedVars: Set<string>,
-  valuePerVars: { [key: string]: Set<number | string> },
+  unassignedVars: Set<Variable>,
+  valuePerVars: ValuePerVars,
 ) {
   let minVar = "";
   let minCount = Infinity;
@@ -27,11 +36,11 @@ function mostConstraintedVariable(
 }
 
 function propagate(
-  variable: string,
-  value: string | number,
-  currentAssignment: t_assignment,
-  valuePerVars: { [key: string]: Set<number | string> },
-  constraints: Set<[string, Set<string>]>,
+  variable: Variable,
+  value: Value,
+  currentAssignment: Assignment,
+  valuePerVars: ValuePerVars,
+  constraints: Set<ConstraintWithVars>,
 ) {
   const newValues = { ...valuePerVars };
   newValues[variable] = new Set([value]);
@@ -62,12 +71,12 @@ function propagate(
 
 // WIP
 function backtrack(
-  assignment: t_assignment,
-  unassignedVars: Set<string>,
+  assignment: Assignment,
+  unassignedVars: Set<Variable>,
   csp: CSPwithVars,
-  valuesPerVar: { [key: string]: Set<number | string> },
+  valuesPerVar: ValuePerVars,
   solutionProcessor?: SolutionProcessor,
-): t_assignment | null {
+): Assignment | null {
   if (unassignedVars.size == 0) {
     if (solutionProcessor) {
       solutionProcessor.processSolution(assignment);
@@ -108,10 +117,10 @@ function backtrack(
 }
 
 function applyUnaryCons(
-  unaryCons: Set<[string, Set<string>]>,
-  valuePerVars: { [key: string]: Set<number | string> },
+  unaryCons: Set<ConstraintWithVars>,
+  valuePerVars: ValuePerVars,
 ) {
-  const assignment: t_assignment = {};
+  const assignment: Assignment = {};
   for (const [constraint, variables] of unaryCons) {
     for (const variable of variables) {
       for (const value of valuePerVars[variable]) {
@@ -126,9 +135,9 @@ function applyUnaryCons(
   return valuePerVars;
 }
 
-function splitUnaryCons(constraints: Set<[string, Set<string>]>) {
-  const unaryCons: Set<[string, Set<string>]> = new Set();
-  const otherCons: Set<[string, Set<string>]> = new Set();
+function splitUnaryCons(constraints: Set<ConstraintWithVars>) {
+  const unaryCons: Set<ConstraintWithVars> = new Set();
+  const otherCons: Set<ConstraintWithVars> = new Set();
   constraints.forEach(function (constraint) {
     const vars = constraint[1];
     if (vars.size == 1) {
@@ -141,7 +150,7 @@ function splitUnaryCons(constraints: Set<[string, Set<string>]>) {
 }
 
 function getValuesPerVar(csp: CSP) {
-  const valuePerVars: { [key: string]: Set<number | string> } = {};
+  const valuePerVars: ValuePerVars = {};
   csp.variables.forEach(function (variable) {
     const cspVal = csp.values;
     valuePerVars[variable] = new Set(cspVal);
