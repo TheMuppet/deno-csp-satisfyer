@@ -23,3 +23,20 @@ Deno.test({
     assertEquals(new Set(["x", "y"]), vars);
   },
 });
+// WIP Stupid bug
+// Deno.test({
+//   name:
+//     "validate variables",
+//   fn: () => {
+//     let vars = new Set(['x', 'y'])
+//     validateVariables(vars)
+
+//     vars = new Set(['x]'])
+//     try {
+//       validateVariables(vars)
+//     } catch {
+//       assert(true)
+//     }
+
+//   },
+// });

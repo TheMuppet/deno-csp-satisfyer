@@ -13,6 +13,7 @@ export {
   getCSPwithVars,
   prepareConstraintsForEval,
   preprocessCsp,
+  validateVariables,
 };
 function arbitrary(array: Array<string>): string {
   const random = Math.floor(Math.random() * array.length);
@@ -79,3 +80,13 @@ function getCSPwithVars(csp: CSP): CSPwithVars {
   };
   return cspVars;
 }
+// WIP STUPID BUG
+// function validateVariables(variables: Set<Variable>) {
+//   const regex = /\w/;
+//   variables.forEach(function (variable) {
+//       if (!regex.test(variable)){
+//           throw Error(' Variables can only be Alphanumerical Charachters')
+//       }
+//     })
+
+// }
