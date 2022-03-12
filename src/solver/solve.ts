@@ -16,6 +16,6 @@ function solve(
     "constraint-propagation",
   solutionProcessor?: SolutionProcessor,
 ): Assignment | null {
-  validateVariables(csp.variables)
+  validateVariables(csp.variables);
   return sovlerObj[solver](csp, solutionProcessor);
 }

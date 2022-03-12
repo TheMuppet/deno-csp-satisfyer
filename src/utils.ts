@@ -4,7 +4,6 @@ import {
   CSP,
   CSPwithVars,
   Variable,
-
 } from "./solver/typesInterfaces.ts";
 export {
   arbitrary,
@@ -82,14 +81,11 @@ function getCSPwithVars(csp: CSP): CSPwithVars {
   return cspVars;
 }
 
-
 function validateVariables(variables: Set<Variable>) {
   const regex = /[^\w]+/;
   variables.forEach(function (variable) {
-      if (regex.test(variable)){
-          throw TypeError('Variables can only be Alphanumerical Charachters')
-      }
-    })
-
+    if (regex.test(variable)) {
+      throw TypeError("Variables can only be Alphanumerical Charachters");
+    }
+  });
 }
-

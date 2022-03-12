@@ -1,6 +1,16 @@
 import { assert, assertArrayIncludes, assertEquals } from "../deps.ts";
-import { Constraint, ConstraintWithVars, Variable } from "../src/solver/typesInterfaces.ts";
-import { arbitrary, arbSet, collectVariables, getConstraintVariables, validateVariables } from "../src/utils.ts";
+import {
+  Constraint,
+  ConstraintWithVars,
+  Variable,
+} from "../src/solver/typesInterfaces.ts";
+import {
+  arbitrary,
+  arbSet,
+  collectVariables,
+  getConstraintVariables,
+  validateVariables,
+} from "../src/utils.ts";
 
 Deno.test({
   name: "arbitrary returns string from array",
@@ -32,43 +42,43 @@ Deno.test({
   },
 });
 Deno.test({
-  name:
-    "test get Constrained Variables",
+  name: "test get Constrained Variables",
   fn: () => {
-    let cons: Set<Constraint> = new Set([
+    const cons: Set<Constraint> = new Set([
       "assignment['x'] && assignment['y']",
-    ])
-    const consVars = getConstraintVariables(cons)
-    const vars: Set<Variable> = new Set(['x', 'y'])
-    const expectedResult: Set<ConstraintWithVars>  = new Set([["assignment['x'] && assignment['y']", vars]])
-    assertEquals(consVars, expectedResult)
+    ]);
+    const consVars = getConstraintVariables(cons);
+    const vars: Set<Variable> = new Set(["x", "y"]);
+    const expectedResult: Set<ConstraintWithVars> = new Set([[
+      "assignment['x'] && assignment['y']",
+      vars,
+    ]]);
+    assertEquals(consVars, expectedResult);
   },
 });
 Deno.test({
-  name:
-    "validate variables",
+  name: "validate variables",
   fn: () => {
-    const vars = new Set(['x', 'y'])
-    let errorThrown = false
+    const vars = new Set(["x", "y"]);
+    let errorThrown = false;
     try {
-      validateVariables(vars)
+      validateVariables(vars);
     } catch {
-      errorThrown = true
+      errorThrown = true;
     }
-    assert(!errorThrown)
+    assert(!errorThrown);
   },
 });
 Deno.test({
-  name:
-    "validate variables",
+  name: "validate variables",
   fn: () => {
-    const vars = new Set(['x]'])
-    let errorThrown = false
+    const vars = new Set(["x]"]);
+    let errorThrown = false;
     try {
-      validateVariables(vars)
+      validateVariables(vars);
     } catch {
-      errorThrown = true
+      errorThrown = true;
     }
-    assert(errorThrown)
+    assert(errorThrown);
   },
 });
