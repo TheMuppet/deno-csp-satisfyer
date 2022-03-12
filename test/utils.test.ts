@@ -1,5 +1,6 @@
-import { assertArrayIncludes, assertEquals } from "../deps.ts";
-import { arbitrary, collectVariables } from "../src/utils.ts";
+import { assert, assertArrayIncludes, assertEquals } from "../deps.ts";
+import { Constraint, ConstraintWithVars, Variable } from "../src/solver/typesInterfaces.ts";
+import { arbitrary, arbSet, collectVariables, getConstraintVariables, validateVariables } from "../src/utils.ts";
 
 Deno.test({
   name: "arbitrary returns string from array",
@@ -9,6 +10,13 @@ Deno.test({
   },
 });
 
+Deno.test({
+  name: "arbSet returns an element from a Set",
+  fn: () => {
+    const z = arbSet(new Set(["x", "y", "z"]));
+    assertArrayIncludes(["x", "y", "z"], Array.from(z));
+  },
+});
 Deno.test({
   name:
     "collect_vars returns list of correct vars in expression with logical operators",
@@ -23,20 +31,44 @@ Deno.test({
     assertEquals(new Set(["x", "y"]), vars);
   },
 });
-// WIP Stupid bug
-// Deno.test({
-//   name:
-//     "validate variables",
-//   fn: () => {
-//     let vars = new Set(['x', 'y'])
-//     validateVariables(vars)
-
-//     vars = new Set(['x]'])
-//     try {
-//       validateVariables(vars)
-//     } catch {
-//       assert(true)
-//     }
-
-//   },
-// });
+Deno.test({
+  name:
+    "test get Constrained Variables",
+  fn: () => {
+    let cons: Set<Constraint> = new Set([
+      "assignment['x'] && assignment['y']",
+    ])
+    const consVars = getConstraintVariables(cons)
+    const vars: Set<Variable> = new Set(['x', 'y'])
+    const expectedResult: Set<ConstraintWithVars>  = new Set([["assignment['x'] && assignment['y']", vars]])
+    assertEquals(consVars, expectedResult)
+  },
+});
+Deno.test({
+  name:
+    "validate variables",
+  fn: () => {
+    const vars = new Set(['x', 'y'])
+    let errorThrown = false
+    try {
+      validateVariables(vars)
+    } catch {
+      errorThrown = true
+    }
+    assert(!errorThrown)
+  },
+});
+Deno.test({
+  name:
+    "validate variables",
+  fn: () => {
+    const vars = new Set(['x]'])
+    let errorThrown = false
+    try {
+      validateVariables(vars)
+    } catch {
+      errorThrown = true
+    }
+    assert(errorThrown)
+  },
+});

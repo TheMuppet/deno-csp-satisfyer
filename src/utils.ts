@@ -4,6 +4,7 @@ import {
   CSP,
   CSPwithVars,
   Variable,
+
 } from "./solver/typesInterfaces.ts";
 export {
   arbitrary,
@@ -62,7 +63,7 @@ function collectVariables(expression: Constraint): Set<Variable> {
 }
 
 function getConstraintVariables(
-  expressions: Set<string>,
+  expressions: Set<Constraint>,
 ): Set<ConstraintWithVars> {
   const constraintsWithVars: Set<ConstraintWithVars> = new Set();
   for (const cons of expressions) {
@@ -80,13 +81,15 @@ function getCSPwithVars(csp: CSP): CSPwithVars {
   };
   return cspVars;
 }
-// WIP STUPID BUG
-// function validateVariables(variables: Set<Variable>) {
-//   const regex = /\w/;
-//   variables.forEach(function (variable) {
-//       if (!regex.test(variable)){
-//           throw Error(' Variables can only be Alphanumerical Charachters')
-//       }
-//     })
 
-// }
+
+function validateVariables(variables: Set<Variable>) {
+  const regex = /[^\w]+/;
+  variables.forEach(function (variable) {
+      if (regex.test(variable)){
+          throw TypeError('Variables can only be Alphanumerical Charachters')
+      }
+    })
+
+}
+

@@ -1,3 +1,4 @@
+import { validateVariables } from "../utils.ts";
 import { solveBacktrack } from "./backtrackSolver.ts";
 import { solveBruteForce } from "./bruteForceSolver.ts";
 import { solveConstraintPropagation } from "./constraintPropagationSolver.ts";
@@ -15,5 +16,6 @@ function solve(
     "constraint-propagation",
   solutionProcessor?: SolutionProcessor,
 ): Assignment | null {
+  validateVariables(csp.variables)
   return sovlerObj[solver](csp, solutionProcessor);
 }
