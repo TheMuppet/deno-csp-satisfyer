@@ -85,7 +85,7 @@ function validateVariables(variables: Set<Variable>) {
   const regex = /[^\w]+/;
   variables.forEach(function (variable) {
     if (regex.test(variable)) {
-      throw TypeError("Variables can only be Alphanumerical Charachters");
+      throw TypeError("Variables can only be Alphanumerical Characters");
     }
   });
 }
