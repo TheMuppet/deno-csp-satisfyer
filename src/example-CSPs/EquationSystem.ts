@@ -1,4 +1,4 @@
-import { CSP } from "../solver/CSP.ts";
+import { CSP } from "../solver/typesInterfaces.ts";
 
 export function equationSystemCSP(a: number, b: number) {
   const variables = new Set(["a", "b"]);
@@ -6,8 +6,8 @@ export function equationSystemCSP(a: number, b: number) {
   const amb = a * b + b;
   const apb = a + b;
   const constraints = new Set([
-    `assignment["a"] + assignment["b"] == ${apb}`,
-    `assignment["b"] * assignment["a"] + assignment["b"]== ${amb}`,
+    `a + b == ${apb}`,
+    `b * a + b == ${amb}`,
   ]);
   const csp: CSP = {
     variables: variables,
@@ -23,8 +23,8 @@ export function equationSystemCSPmultipleSol(a: number, b: number) {
   const amb = a * b;
   const apb = a + b;
   const constraints = new Set([
-    `assignment["a"] + assignment["b"] == ${apb}`,
-    `assignment["b"] * assignment["a"] == ${amb}`,
+    `a + b == ${apb}`,
+    `b * a == ${amb}`,
   ]);
   const csp: CSP = {
     variables: variables,
