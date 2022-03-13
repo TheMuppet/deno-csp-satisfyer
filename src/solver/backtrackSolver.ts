@@ -1,16 +1,22 @@
-import { arb_set, getCSPwithVars } from "../utils.ts";
-export { solve };
-import { SolutionProcessor } from "../solutionProcessors.ts";
-import { CSP, CSPwithVars } from "./CSP.ts";
-import { t_assignment } from "./assignment.ts";
-import { preprocess_csp } from "../utils.ts";
+import { arbSet, getCSPwithVars } from "../utils.ts";
+export { solveBacktrack };
+import {
+  Assignment,
+  Constraint,
+  CSP,
+  CSPwithVars,
+  SolutionProcessor,
+  Value,
+  Variable,
+} from "./typesInterfaces.ts";
+import { preprocessCsp } from "../utils.ts";
 
 export function isConsistent(
-  variable: string,
-  value: string | number,
-  oldAssignment: t_assignment,
-  constraints: Set<[string, Set<string>]>,
-) {
+  variable: Variable,
+  value: Value,
+  oldAssignment: Assignment,
+  constraints: Set<[Constraint, Set<Variable>]>,
+): boolean {
   const assignment = { ...oldAssignment };
   assignment[variable] = value;
   for (const [cons, vars] of constraints) {
@@ -27,11 +33,11 @@ export function isConsistent(
 }
 
 function backtrack(
-  assignment: t_assignment,
-  unassignedVars: Set<string>,
+  assignment: Assignment,
+  unassignedVars: Set<Variable>,
   csp: CSPwithVars,
   solutionProcessor?: SolutionProcessor,
-): t_assignment | null {
+): Assignment | null {
   if (unassignedVars.size == 0) {
     if (solutionProcessor) {
       solutionProcessor.processSolution(assignment);
@@ -40,7 +46,7 @@ function backtrack(
       return assignment;
     }
   }
-  const variable = arb_set(unassignedVars);
+  const variable = arbSet(unassignedVars);
   unassignedVars.delete(variable);
   for (const value of csp.values) {
     if (isConsistent(variable, value, assignment, csp.constraints)) {
@@ -61,9 +67,12 @@ function backtrack(
   return null;
 }
 
-function solve(csp: CSP, solutionProcessor?: SolutionProcessor) {
-  const preprocessed_csp: CSP = preprocess_csp(csp);
-  const unassignedVars: Set<string> = new Set(csp.variables);
+function solveBacktrack(
+  csp: CSP,
+  solutionProcessor?: SolutionProcessor,
+): Assignment | null {
+  const preprocessed_csp: CSP = preprocessCsp(csp);
+  const unassignedVars: Set<Variable> = new Set(csp.variables);
   return backtrack(
     {},
     unassignedVars,

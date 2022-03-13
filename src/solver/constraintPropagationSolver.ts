@@ -1,19 +1,26 @@
-import { getCSPwithVars, preprocess_csp } from "../utils.ts";
-import { SolutionProcessor } from "../solutionProcessors.ts";
-import { CSP, CSPwithVars } from "./CSP.ts";
-import { t_assignment } from "./assignment.ts";
+import { getCSPwithVars, preprocessCsp } from "../utils.ts";
+import {
+  Assignment,
+  ConstraintWithVars,
+  CSP,
+  CSPwithVars,
+  SolutionProcessor,
+  Value,
+  ValuePerVars,
+  Variable,
+} from "./typesInterfaces.ts";
 export {
   applyUnaryCons,
   getValuesPerVar,
   mostConstraintedVariable,
   propagate,
-  solve,
+  solveConstraintPropagation,
   splitUnaryCons,
 };
 function mostConstraintedVariable(
-  unassignedVars: Set<string>,
-  valuePerVars: { [key: string]: Set<number | string> },
-) {
+  unassignedVars: Set<Variable>,
+  valuePerVars: ValuePerVars,
+): Variable {
   let minVar = "";
   let minCount = Infinity;
   const valueCount: Array<[string, number]> = new Array(0);
@@ -29,12 +36,12 @@ function mostConstraintedVariable(
 }
 
 function propagate(
-  variable: string,
-  value: string | number,
-  currentAssignment: t_assignment,
-  valuePerVars: { [key: string]: Set<number | string> },
-  constraints: Set<[string, Set<string>]>,
-) {
+  variable: Variable,
+  value: Value,
+  currentAssignment: Assignment,
+  valuePerVars: ValuePerVars,
+  constraints: Set<ConstraintWithVars>,
+): ValuePerVars | null {
   const newValues = { ...valuePerVars };
   newValues[variable] = new Set([value]);
   const assignmentWithVar = { ...currentAssignment };
@@ -64,12 +71,12 @@ function propagate(
 
 // WIP
 function backtrack(
-  assignment: t_assignment,
-  unassignedVars: Set<string>,
+  assignment: Assignment,
+  unassignedVars: Set<Variable>,
   csp: CSPwithVars,
-  valuesPerVar: { [key: string]: Set<number | string> },
+  valuesPerVar: ValuePerVars,
   solutionProcessor?: SolutionProcessor,
-): t_assignment | null {
+): Assignment | null {
   if (unassignedVars.size == 0) {
     if (solutionProcessor) {
       solutionProcessor.processSolution(assignment);
@@ -110,10 +117,10 @@ function backtrack(
 }
 
 function applyUnaryCons(
-  unaryCons: Set<[string, Set<string>]>,
-  valuePerVars: { [key: string]: Set<number | string> },
-) {
-  const assignment: t_assignment = {};
+  unaryCons: Set<ConstraintWithVars>,
+  valuePerVars: ValuePerVars,
+): ValuePerVars {
+  const assignment: Assignment = {};
   for (const [constraint, variables] of unaryCons) {
     for (const variable of variables) {
       for (const value of valuePerVars[variable]) {
@@ -128,9 +135,11 @@ function applyUnaryCons(
   return valuePerVars;
 }
 
-function splitUnaryCons(constraints: Set<[string, Set<string>]>) {
-  const unaryCons: Set<[string, Set<string>]> = new Set();
-  const otherCons: Set<[string, Set<string>]> = new Set();
+function splitUnaryCons(
+  constraints: Set<ConstraintWithVars>,
+): [Set<ConstraintWithVars>, Set<ConstraintWithVars>] {
+  const unaryCons: Set<ConstraintWithVars> = new Set();
+  const otherCons: Set<ConstraintWithVars> = new Set();
   constraints.forEach(function (constraint) {
     const vars = constraint[1];
     if (vars.size == 1) {
@@ -142,8 +151,8 @@ function splitUnaryCons(constraints: Set<[string, Set<string>]>) {
   return [unaryCons, otherCons];
 }
 
-function getValuesPerVar(csp: CSP) {
-  const valuePerVars: { [key: string]: Set<number | string> } = {};
+function getValuesPerVar(csp: CSP): ValuePerVars {
+  const valuePerVars: ValuePerVars = {};
   csp.variables.forEach(function (variable) {
     const cspVal = csp.values;
     valuePerVars[variable] = new Set(cspVal);
@@ -151,8 +160,11 @@ function getValuesPerVar(csp: CSP) {
   return valuePerVars;
 }
 
-function solve(csp: CSP, solutionProcessor?: SolutionProcessor) {
-  const preprocessed_csp: CSP = preprocess_csp(csp);
+function solveConstraintPropagation(
+  csp: CSP,
+  solutionProcessor?: SolutionProcessor,
+): Assignment | null {
+  const preprocessed_csp: CSP = preprocessCsp(csp);
   const unassignedVars: Set<string> = new Set(preprocessed_csp.variables);
   let valuesPerVar: { [key: string]: Set<number | string> } = getValuesPerVar(
     preprocessed_csp,

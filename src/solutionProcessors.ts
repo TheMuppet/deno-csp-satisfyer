@@ -1,11 +1,8 @@
-import { t_assignment } from "./solver/assignment.ts";
-export interface SolutionProcessor {
-  processSolution(assignment: t_assignment): void;
-}
-
-export const allSolProc = {
-  allSolutions: new Set(),
-  processSolution: function (assignment: t_assignment) {
+import { Assignment, SolutionProcessor } from "./solver/typesInterfaces.ts";
+export { AllSolProc };
+class AllSolProc implements SolutionProcessor {
+  allSolutions: Set<Assignment> = new Set();
+  processSolution(assignment: Assignment) {
     this.allSolutions.add(assignment);
-  },
-};
+  }
+}

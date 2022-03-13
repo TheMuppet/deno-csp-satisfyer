@@ -1,22 +1,21 @@
 import { assert, assertEquals } from "../deps.ts";
 import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
-import { allSolProc } from "../src/solutionProcessors.ts";
-import { t_assignment } from "../src/solver/assignment.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
 import {
   applyUnaryCons,
   getValuesPerVar,
   mostConstraintedVariable,
   propagate,
-  solve,
+  solveConstraintPropagation,
   splitUnaryCons,
 } from "../src/solver/constraintPropagationSolver.ts";
-import { CSP, CSPwithVars } from "../src/solver/CSP.ts";
+import { Assignment, CSP, CSPwithVars } from "../src/solver/typesInterfaces.ts";
+import { AllSolProc } from "../src/solutionProcessors.ts";
 import {
-  arb_set,
+  arbSet,
   getCSPwithVars,
-  prepare_constraints_for_eval,
-  preprocess_csp,
+  prepareConstraintsForEval,
+  preprocessCsp,
 } from "../src/utils.ts";
 
 const basicCSP: CSP = {
@@ -28,13 +27,13 @@ const basicCSP: CSP = {
     "A + B != C",
   ]),
 };
-const preprocessed_csp: CSP = preprocess_csp(basicCSP);
+const preprocessed_csp: CSP = preprocessCsp(basicCSP);
 const cspVars: CSPwithVars = getCSPwithVars(preprocessed_csp);
 Deno.test({
   name: "Test splitUnaryCons",
   fn: () => {
     const [unaryCons, otherCons] = splitUnaryCons(cspVars.constraints);
-    assertEquals(arb_set(unaryCons)[0], "assignment['A'] == 'C'");
+    assertEquals(arbSet(unaryCons)[0], "assignment['A'] == 'C'");
     const excpectedOtherCons = new Set([[
       "assignment['B'] == assignment['A']",
       new Set(["B", "A"]),
@@ -82,7 +81,7 @@ Deno.test({
     const valuesPerVar = getValuesPerVar(basicCSP);
     const [unaryCons, otherCons] = splitUnaryCons(cspVars.constraints);
     const valuesPerVarSolved = applyUnaryCons(unaryCons, valuesPerVar);
-    const assignment: t_assignment = {};
+    const assignment: Assignment = {};
     const newValues = propagate(
       "A",
       "C",
@@ -105,12 +104,12 @@ Deno.test({
   fn: () => {
     const n = 8;
     const csp = nQueensProblemCSP(n);
-    const sol = solve(csp);
+    const sol = solveConstraintPropagation(csp);
     if (sol) {
       assert(
         checkAllConstraints(
           sol,
-          prepare_constraints_for_eval(csp.variables, csp.constraints),
+          prepareConstraintsForEval(csp.variables, csp.constraints),
         ),
       );
     } else {
@@ -123,9 +122,9 @@ Deno.test({
   name: "Test CP-Solver Solver on 8-Queens Problem with All Solution",
   fn: () => {
     const n = 8;
-    const solProc = allSolProc;
+    const solProc = new AllSolProc();
     const csp = nQueensProblemCSP(n);
-    solve(csp, solProc);
+    solveConstraintPropagation(csp, solProc);
     if (solProc.allSolutions) {
       assertEquals(solProc.allSolutions.size, 92);
     } else {
