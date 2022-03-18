@@ -1,5 +1,4 @@
 import { arbSet } from "../utils.ts";
-export { solveBruteForce };
 import { Assignment, Constraint, CSP, Variable } from "./typesInterfaces.ts";
 import { preprocessCsp } from "../utils.ts";
 import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
@@ -53,7 +52,7 @@ function bruteForceSearch(
   return null;
 }
 
-function solveBruteForce(
+export function solveBruteForce(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ): Assignment | null {

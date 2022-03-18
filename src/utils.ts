@@ -5,30 +5,20 @@ import {
   CSPwithVars,
   Variable,
 } from "./solver/typesInterfaces.ts";
-export {
-  arbitrary,
-  arbSet,
-  collectVariables,
-  getConstraintVariables,
-  getCSPwithVars,
-  prepareConstraintsForEval,
-  preprocessCsp,
-  validateVariables,
-};
-function arbitrary(array: Array<string>): string {
+
+export function arbitrary(array: Array<string>): string {
   const random = Math.floor(Math.random() * array.length);
   return array[random];
 }
 
-// function returns an element of a Set
 // deno-lint-ignore no-explicit-any
-function arbSet(set: Set<any>): any { //skipcq: JS-0323
+export function arbSet(set: Set<any>): any { //skipcq: JS-0323
   for (const e of set) {
     return e;
   }
 }
 
-function prepareConstraintsForEval(
+export function prepareConstraintsForEval(
   variables: Set<Variable>,
   constraints: Set<Constraint>,
 ): Set<Constraint> {
@@ -46,7 +36,7 @@ function prepareConstraintsForEval(
   return new_constraints;
 }
 
-function preprocessCsp(
+export function preprocessCsp(
   csp: CSP,
 ): CSP {
   const preprocessedCsp: CSP = {
@@ -57,11 +47,11 @@ function preprocessCsp(
   return preprocessedCsp;
 }
 
-function collectVariables(expression: Constraint): Set<Variable> {
+export function collectVariables(expression: Constraint): Set<Variable> {
   return new Set(expression.match(/(?<=assignment\[["'])(\S)+(?=(["']\]))/ig));
 }
 
-function getConstraintVariables(
+export function getConstraintVariables(
   expressions: Set<Constraint>,
 ): Set<ConstraintWithVars> {
   const constraintsWithVars: Set<ConstraintWithVars> = new Set();
@@ -71,7 +61,7 @@ function getConstraintVariables(
   return constraintsWithVars;
 }
 
-function getCSPwithVars(csp: CSP): CSPwithVars {
+export function getCSPwithVars(csp: CSP): CSPwithVars {
   const newCons = getConstraintVariables(csp.constraints);
   const cspVars: CSPwithVars = {
     variables: csp.variables,
@@ -81,7 +71,7 @@ function getCSPwithVars(csp: CSP): CSPwithVars {
   return cspVars;
 }
 
-function validateVariables(variables: Set<Variable>) {
+export function validateVariables(variables: Set<Variable>) {
   const regex = /[^\w]+/;
   variables.forEach(function (variable) {
     if (regex.test(variable)) {

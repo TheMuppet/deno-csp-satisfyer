@@ -1,9 +1,8 @@
-import { solveBruteForce } from "../../src/solver/bruteForceSolver.ts";
 import { assert, assertArrayIncludes, assertEquals } from "../../deps.ts";
-import { nQueensProblemCSP } from "../../src/example-CSPs/nQueensProblem.ts";
+import { nQueensProblemCSP } from "../../example-CSPs/nQueensProblem.ts";
 import { checkAllConstraints } from "../../src/solver/bruteForceSolver.ts";
 import { prepareConstraintsForEval } from "../../src/utils.ts";
-import { equationSystemCSP } from "../../src/example-CSPs/EquationSystem.ts";
+import { equationSystemCSP } from "../../example-CSPs/EquationSystem.ts";
 import { solve } from "../../src/solver/solve.ts";
 import { AllSolProc } from "../../src/solutionProcessors/AllSolProc.ts";
 import { StatProc } from "../../src/solutionProcessors/StatProc.ts";

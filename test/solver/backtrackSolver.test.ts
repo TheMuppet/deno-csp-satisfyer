@@ -1,6 +1,6 @@
 import { assert, assertEquals } from "../../deps.ts";
-import { equationSystemCSP } from "../../src/example-CSPs/EquationSystem.ts";
-import { nQueensProblemCSP } from "../../src/example-CSPs/nQueensProblem.ts";
+import { equationSystemCSP } from "../../example-CSPs/EquationSystem.ts";
+import { nQueensProblemCSP } from "../../example-CSPs/nQueensProblem.ts";
 import { isConsistent } from "../../src/solver/backtrackSolver.ts";
 import { checkAllConstraints } from "../../src/solver/bruteForceSolver.ts";
 import { solve } from "../../src/solver/solve.ts";

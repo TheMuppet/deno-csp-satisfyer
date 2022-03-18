@@ -1,6 +1,6 @@
-import { CSP } from "../solver/typesInterfaces.ts";
+import { CSP } from "../src/solver/typesInterfaces.ts";
 
-export function equationSystemCSP(a: number, b: number) {
+export function equationSystemCSP(a: number, b: number): CSP {
   const variables = new Set(["a", "b"]);
   const values = new Set([1, 2, 3, 5]);
   const amb = a * b + b;

@@ -1,4 +1,4 @@
-import { arbSet, getCSPwithVars } from "../utils.ts";
+import { arbSet, getCSPwithVars, preprocessCsp } from "../utils.ts";
 export { solveBacktrack };
 import {
   Assignment,
@@ -8,7 +8,6 @@ import {
   Value,
   Variable,
 } from "./typesInterfaces.ts";
-import { preprocessCsp } from "../utils.ts";
 import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
 
 export function isConsistent(

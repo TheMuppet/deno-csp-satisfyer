@@ -1,31 +1,20 @@
-export type {
-  Assignment,
-  Constraint,
-  ConstraintWithVars,
-  CSP,
-  CSPwithVars,
-  Value,
-  ValuePerVars,
-  Variable,
-};
+export type Variable = string;
+export type Value = number | string;
+export type Constraint = string;
 
-type Variable = string;
-type Value = number | string;
-type Constraint = string;
-
-type Assignment = {
+export type Assignment = {
   [key: Variable]: Value;
 };
-type ValuePerVars = { [key: Variable]: Set<Value> };
+export type ValuePerVars = { [key: Variable]: Set<Value> };
 
-type ConstraintWithVars = [Constraint, Set<Variable>];
-type CSP = {
+export type ConstraintWithVars = [Constraint, Set<Variable>];
+export type CSP = {
   variables: Set<Variable>;
   values: Set<Value>;
   constraints: Set<Constraint>;
 };
 
-type CSPwithVars = {
+export type CSPwithVars = {
   variables: Set<Variable>;
   values: Set<Value>;
   constraints: Set<[Constraint, Set<string>]>;

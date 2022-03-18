@@ -4,14 +4,13 @@ import { solveBacktrack } from "./backtrackSolver.ts";
 import { solveBruteForce } from "./bruteForceSolver.ts";
 import { solveConstraintPropagation } from "./constraintPropagationSolver.ts";
 import { Assignment, CSP } from "./typesInterfaces.ts";
-export { solve };
 const sovlerObj = {
   "bruteforce": solveBruteForce,
   "backtrack": solveBacktrack,
   "constraint-propagation": solveConstraintPropagation,
 };
 
-function solve(
+export function solve(
   csp: CSP,
   solver: "bruteforce" | "backtrack" | "constraint-propagation" =
     "constraint-propagation",
