@@ -1,16 +1,16 @@
-import { assert, assertArrayIncludes, assertEquals } from "../deps.ts";
+import { assert, assertArrayIncludes, assertEquals } from "../../deps.ts";
 import {
   Constraint,
   ConstraintWithVars,
   Variable,
-} from "../src/solver/typesInterfaces.ts";
+} from "../../src/solver/typesInterfaces.ts";
 import {
   arbitrary,
   arbSet,
   collectVariables,
   getConstraintVariables,
   validateVariables,
-} from "../src/utils.ts";
+} from "../../src/utils.ts";
 
 Deno.test({
   name: "arbitrary returns string from array",

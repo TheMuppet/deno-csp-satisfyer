@@ -5,11 +5,11 @@ import {
   Constraint,
   CSP,
   CSPwithVars,
-  SolutionProcessor,
   Value,
   Variable,
 } from "./typesInterfaces.ts";
 import { preprocessCsp } from "../utils.ts";
+import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
 
 export function isConsistent(
   variable: Variable,
