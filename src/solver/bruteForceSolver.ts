@@ -1,5 +1,5 @@
 import { arbSet } from "../utils.ts";
-export { solveBruteForce };
+export { solveBruteForceSet };
 import {
   Assignment,
   Constraint,
@@ -58,7 +58,7 @@ function bruteForceSearch(
   return null;
 }
 
-function solveBruteForce(
+function solveBruteForceSet(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ): Assignment | null {

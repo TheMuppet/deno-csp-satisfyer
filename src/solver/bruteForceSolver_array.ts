@@ -1,12 +1,11 @@
 import { arbitrary } from "../utils.ts";
-export { solve };
-import { SolutionProcessor } from "../solutionProcessors.ts";
+export { solveBruteForceArray };
+import { Assignment, SolutionProcessor } from "./typesInterfaces.ts";
 import { CSP } from "./CSP_array.ts";
-import { t_assignment } from "./assignment.ts";
 
 export function checkAllConstraints(
   // deno-lint-ignore no-unused-vars
-  assignment: t_assignment,
+  assignment: Assignment,
   constraints: Array<string>,
 ) {
   for (const con of constraints) {
@@ -18,11 +17,11 @@ export function checkAllConstraints(
 }
 
 function bruteForceSearch(
-  assignment: t_assignment,
+  assignment: Assignment,
   unassignedVars: Array<string>,
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
-): t_assignment | null {
+): Assignment | null {
   if (Object.keys(assignment).length == csp.variables.length) {
     if (checkAllConstraints(assignment, csp.constraints)) {
       if (solutionProcessor) {
@@ -36,9 +35,9 @@ function bruteForceSearch(
   const variable = arbitrary(unassignedVars);
   unassignedVars = unassignedVars.filter((obj) => obj !== variable);
   for (const value of csp.values) {
-    const newAssignment: t_assignment = { ...assignment };
+    const newAssignment: Assignment = { ...assignment };
     newAssignment[variable] = value;
-    const result: t_assignment | null = bruteForceSearch(
+    const result: Assignment | null = bruteForceSearch(
       newAssignment,
       unassignedVars,
       csp,
@@ -52,7 +51,7 @@ function bruteForceSearch(
   return null;
 }
 
-function solve(
+function solveBruteForceArray(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ) {

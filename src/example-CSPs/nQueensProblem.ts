@@ -1,5 +1,5 @@
 import { CSP } from "../solver/typesInterfaces.ts";
-export function nQueensProblemCSP(n: number) {
+export function nQueensProblemCSPSet(n: number) {
   const variables = new Set(Array.from({ length: n }, (_, i) => `V${i + 1}`));
   const values = new Set(Array.from({ length: n }, (_, i) => i + 1));
   const constraints = new Set<string>();

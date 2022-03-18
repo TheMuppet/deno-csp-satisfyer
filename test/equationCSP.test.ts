@@ -1,4 +1,4 @@
-import { solveBruteForce } from "../src/solver/bruteForceSolver.ts";
+import { solveBruteForceSet } from "../src/solver/bruteForceSolver.ts";
 import { assertEquals } from "../deps.ts";
 import {
   equationSystemCSP,
@@ -10,7 +10,7 @@ Deno.test({
   fn: () => {
     const a = 2;
     const b = 3;
-    const sol = solveBruteForce(equationSystemCSP(a, b));
+    const sol = solveBruteForceSet(equationSystemCSP(a, b));
     assertEquals(sol, { "a": a, "b": b });
   },
 });
@@ -20,7 +20,7 @@ Deno.test({
     const a = 2;
     const b = 3;
     const solProc = new AllSolProc();
-    solveBruteForce(equationSystemCSPmultipleSol(a, b), solProc);
+    solveBruteForceSet(equationSystemCSPmultipleSol(a, b), solProc);
     const sol = new Set([{ "a": a, "b": b }, { "a": b, "b": a }]);
     assertEquals(solProc.allSolutions, sol);
   },
