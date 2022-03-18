@@ -15,9 +15,10 @@ Satisfyer is a Deno module that allows you to solve a so-called
 ## Example
 
 Import the solver function from `mod.ts` and define your problem using the CSP
-type. A CSP is constructed using a dictionary with `variables`, `values` and
-`constraints` as keys, and its corresponding values as a set of `strings`.
-Values can also be defined as a set of `numbers`.\
+type. The solver takes a CSP and optionally a solver of your choice as parameters, 
+by default the constrint-propagation method will be used. A CSP is constructed using 
+a dictionary with `variables`, `values` and `constraints` as keys, and its corresponding 
+values as a set of `strings`. Values can also be defined as a set of `numbers`.\
 The solver takes the CSP as a parameter and returns the solution.
 
 ### 8-Queens-Problem as CSP and calling the solver:
@@ -52,4 +53,5 @@ const csp: CSP = {
 };
 
 const solution = solve(csp);
+const solution = solve(csp, bruteforce);
 ```
