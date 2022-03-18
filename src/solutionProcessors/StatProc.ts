@@ -1,7 +1,7 @@
 import { Assignment, Value, Variable } from "../solver/typesInterfaces.ts";
 import { SolutionProcessor } from "./SolutionProcessors.ts";
-export { StatProc };
-class StatProc implements SolutionProcessor {
+
+export class StatProc implements SolutionProcessor {
   allSolutionsCount: { [key: Variable]: { [key: Value]: number } } = {};
   solutionCount: number;
 

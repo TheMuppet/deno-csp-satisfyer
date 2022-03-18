@@ -1,5 +1,4 @@
 import { arbSet, getCSPwithVars, preprocessCsp } from "../utils.ts";
-export { solveBacktrack };
 import {
   Assignment,
   Constraint,
@@ -66,7 +65,7 @@ function backtrack(
   return null;
 }
 
-function solveBacktrack(
+export function solveBacktrack(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ): Assignment | null {

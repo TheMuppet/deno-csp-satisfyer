@@ -1,5 +1,4 @@
 import { Assignment } from "../solver/typesInterfaces.ts";
-export type { SolutionProcessor };
-interface SolutionProcessor {
+export interface SolutionProcessor {
   processSolution(assignment: Assignment): void;
 }
