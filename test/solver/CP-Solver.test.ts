@@ -1,22 +1,28 @@
-import { assert, assertEquals } from "../deps.ts";
-import { nQueensProblemCSP } from "../example-CSPs/nQueensProblem.ts";
-import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
+import { assert, assertEquals } from "../../deps.ts";
+import { nQueensProblemCSP } from "../../example-CSPs/nQueensProblem.ts";
+import { checkAllConstraints } from "../../src/solver/bruteForceSolver.ts";
 import {
   applyUnaryCons,
   getValuesPerVar,
   mostConstraintedVariable,
   propagate,
-  solveConstraintPropagation,
   splitUnaryCons,
-} from "../src/solver/constraintPropagationSolver.ts";
-import { Assignment, CSP, CSPwithVars } from "../src/solver/typesInterfaces.ts";
-import { AllSolProc } from "../src/solutionProcessors.ts";
+} from "../../src/solver/constraintPropagationSolver.ts";
+import {
+  Assignment,
+  CSP,
+  CSPwithVars,
+} from "../../src/solver/typesInterfaces.ts";
 import {
   arbSet,
   getCSPwithVars,
   prepareConstraintsForEval,
   preprocessCsp,
-} from "../src/utils.ts";
+} from "../../src/utils.ts";
+import { equationSystemCSP } from "../../example-CSPs/EquationSystem.ts";
+import { solve } from "../../src/solver/solve.ts";
+import { AllSolProc } from "../../src/solutionProcessors/AllSolProc.ts";
+import { StatProc } from "../../src/solutionProcessors/StatProc.ts";
 
 const basicCSP: CSP = {
   variables: new Set(["A", "B", "C"]),
@@ -94,8 +100,17 @@ Deno.test({
       B: new Set(["C"]),
       C: new Set(["C", "D"]),
     };
-    console.log(propagate("A", "C", assignment, valuesPerVarSolved, otherCons));
     assertEquals(newValues, expectedValues);
+  },
+});
+
+Deno.test({
+  name: "Test Cp-Solver Force Solver On EQ System",
+  fn: () => {
+    const a = 2;
+    const b = 3;
+    const sol = solve(equationSystemCSP(a, b), "constraint-propagation");
+    assertEquals(sol, { "a": a, "b": b });
   },
 });
 
@@ -104,7 +119,7 @@ Deno.test({
   fn: () => {
     const n = 8;
     const csp = nQueensProblemCSP(n);
-    const sol = solveConstraintPropagation(csp);
+    const sol = solve(csp, "constraint-propagation");
     if (sol) {
       assert(
         checkAllConstraints(
@@ -124,11 +139,23 @@ Deno.test({
     const n = 8;
     const solProc = new AllSolProc();
     const csp = nQueensProblemCSP(n);
-    solveConstraintPropagation(csp, solProc);
+    solve(csp, "constraint-propagation", solProc);
     if (solProc.allSolutions) {
       assertEquals(solProc.allSolutions.size, 92);
     } else {
       assert(false);
     }
+  },
+});
+
+Deno.test({
+  name:
+    "Test Constraint-Propagation Solver on 8-Queens Problem with Stats Solution",
+  fn: () => {
+    const n = 8;
+    const csp = nQueensProblemCSP(n);
+    const solProc = new StatProc(csp.variables, csp.values);
+    solve(csp, "constraint-propagation", solProc);
+    assertEquals(solProc.solutionCount, 92);
   },
 });

@@ -1,10 +1,10 @@
+import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
 import { getCSPwithVars, preprocessCsp } from "../utils.ts";
 import {
   Assignment,
   ConstraintWithVars,
   CSP,
   CSPwithVars,
-  SolutionProcessor,
   Value,
   ValuePerVars,
   Variable,

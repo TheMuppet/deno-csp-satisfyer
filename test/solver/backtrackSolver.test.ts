@@ -1,12 +1,23 @@
-import { assert, assertEquals } from "../deps.ts";
-import { nQueensProblemCSP } from "../example-CSPs/nQueensProblem.ts";
-import { AllSolProc } from "../src/solutionProcessors.ts";
-import { isConsistent } from "../src/solver/backtrackSolver.ts";
-import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
-import { solve } from "../src/solver/solve.ts";
-import { getCSPwithVars } from "../src/utils.ts";
-import { prepareConstraintsForEval } from "../src/utils.ts";
-import { preprocessCsp } from "../src/utils.ts";
+import { assert, assertEquals } from "../../deps.ts";
+import { equationSystemCSP } from "../../example-CSPs/EquationSystem.ts";
+import { nQueensProblemCSP } from "../../example-CSPs/nQueensProblem.ts";
+import { isConsistent } from "../../src/solver/backtrackSolver.ts";
+import { checkAllConstraints } from "../../src/solver/bruteForceSolver.ts";
+import { solve } from "../../src/solver/solve.ts";
+import { getCSPwithVars } from "../../src/utils.ts";
+import { prepareConstraintsForEval } from "../../src/utils.ts";
+import { preprocessCsp } from "../../src/utils.ts";
+import { AllSolProc } from "../../src/solutionProcessors/AllSolProc.ts";
+import { StatProc } from "../../src/solutionProcessors/StatProc.ts";
+Deno.test({
+  name: "Test Backtrack Force Solver On EQ System",
+  fn: () => {
+    const a = 2;
+    const b = 3;
+    const sol = solve(equationSystemCSP(a, b), "backtrack");
+    assertEquals(sol, { "a": a, "b": b });
+  },
+});
 
 Deno.test({
   name: "Test Backtrack Solver on 8-Queens Problem ",
@@ -39,6 +50,18 @@ Deno.test({
     } else {
       assert(false);
     }
+  },
+});
+
+Deno.test({
+  name: "Test Backtrack Solver on 8-Queens Problem with Stats Solution",
+  fn: () => {
+    const n = 8;
+    const csp = nQueensProblemCSP(n);
+    const solProc = new StatProc(csp.variables, csp.values);
+    solve(csp, "backtrack", solProc);
+    //console.log(solProc.allSolutions)
+    assertEquals(solProc.solutionCount, 92);
   },
 });
 

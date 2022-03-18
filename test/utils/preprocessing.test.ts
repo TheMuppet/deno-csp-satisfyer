@@ -1,5 +1,5 @@
-import { assertEquals } from "../deps.ts";
-import { prepareConstraintsForEval } from "../src/utils.ts";
+import { assertEquals } from "../../deps.ts";
+import { prepareConstraintsForEval } from "../../src/utils.ts";
 
 Deno.test({
   name: "Constraint variable to value",

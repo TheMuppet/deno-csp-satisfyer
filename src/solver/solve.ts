@@ -1,9 +1,9 @@
+import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
 import { validateVariables } from "../utils.ts";
 import { solveBacktrack } from "./backtrackSolver.ts";
 import { solveBruteForce } from "./bruteForceSolver.ts";
 import { solveConstraintPropagation } from "./constraintPropagationSolver.ts";
-import { Assignment, CSP, SolutionProcessor } from "./typesInterfaces.ts";
-
+import { Assignment, CSP } from "./typesInterfaces.ts";
 const sovlerObj = {
   "bruteforce": solveBruteForce,
   "backtrack": solveBacktrack,

@@ -1,11 +1,7 @@
-import { arbSet, preprocessCsp } from "../utils.ts";
-import {
-  Assignment,
-  Constraint,
-  CSP,
-  SolutionProcessor,
-  Variable,
-} from "./typesInterfaces.ts";
+import { arbSet } from "../utils.ts";
+import { Assignment, Constraint, CSP, Variable } from "./typesInterfaces.ts";
+import { preprocessCsp } from "../utils.ts";
+import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
 
 export function checkAllConstraints(
   // assignment is needed for eval function so we need to ignore errors

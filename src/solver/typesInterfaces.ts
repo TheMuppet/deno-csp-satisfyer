@@ -1,10 +1,10 @@
-export type Assignment = {
-  [key: string]: number | string;
-};
 export type Variable = string;
 export type Value = number | string;
 export type Constraint = string;
 
+export type Assignment = {
+  [key: Variable]: Value;
+};
 export type ValuePerVars = { [key: Variable]: Set<Value> };
 
 export type ConstraintWithVars = [Constraint, Set<Variable>];
@@ -15,11 +15,7 @@ export type CSP = {
 };
 
 export type CSPwithVars = {
-  variables: Set<string>;
-  values: Set<number | string>;
-  constraints: Set<[string, Set<string>]>;
+  variables: Set<Variable>;
+  values: Set<Value>;
+  constraints: Set<[Constraint, Set<string>]>;
 };
-
-export interface SolutionProcessor {
-  processSolution(assignment: Assignment): void;
-}

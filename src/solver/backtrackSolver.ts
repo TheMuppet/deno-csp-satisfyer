@@ -1,14 +1,13 @@
 import { arbSet, getCSPwithVars, preprocessCsp } from "../utils.ts";
-export { solveBacktrack };
 import {
   Assignment,
   Constraint,
   CSP,
   CSPwithVars,
-  SolutionProcessor,
   Value,
   Variable,
 } from "./typesInterfaces.ts";
+import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
 
 export function isConsistent(
   variable: Variable,
@@ -66,7 +65,7 @@ function backtrack(
   return null;
 }
 
-function solveBacktrack(
+export function solveBacktrack(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ): Assignment | null {
