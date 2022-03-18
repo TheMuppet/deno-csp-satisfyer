@@ -14,9 +14,9 @@ Satisfyer is a Deno module that allows you to solve a so-called
 
 ## Example
 
-Import the solver function from `mod.ts` and define your problem using
-the CSP type. A CSP is constructed using a dictionary with `variables`, `values`
-and `constraints` as keys, and its corresponding values as a set of `strings`.
+Import the solver function from `mod.ts` and define your problem using the CSP
+type. A CSP is constructed using a dictionary with `variables`, `values` and
+`constraints` as keys, and its corresponding values as a set of `strings`.
 Values can also be defined as a set of `numbers`.\
 The solver takes the CSP as a parameter and returns the solution.
 
