@@ -1,5 +1,4 @@
-import { arbSet } from "../utils.ts";
-export { solveBruteForce };
+import { arbSet, preprocessCsp } from "../utils.ts";
 import {
   Assignment,
   Constraint,
@@ -7,7 +6,6 @@ import {
   SolutionProcessor,
   Variable,
 } from "./typesInterfaces.ts";
-import { preprocessCsp } from "../utils.ts";
 
 export function checkAllConstraints(
   // assignment is needed for eval function so we need to ignore errors
@@ -58,7 +56,7 @@ function bruteForceSearch(
   return null;
 }
 
-function solveBruteForce(
+export function solveBruteForce(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ): Assignment | null {
