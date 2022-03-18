@@ -1,10 +1,10 @@
 import { assertEquals } from "../deps.ts";
-import { prepare_constraints_for_eval } from "../src/utils.ts";
+import { prepareConstraintsForEval } from "../src/utils.ts";
 
 Deno.test({
   name: "Constraint variable to value",
   fn: () => {
-    const constraints = prepare_constraints_for_eval(
+    const constraints = prepareConstraintsForEval(
       new Set(["A"]),
       new Set(["A = 1"]),
     );
@@ -15,7 +15,7 @@ Deno.test({
 Deno.test({
   name: "Constraint variable to variable",
   fn: () => {
-    const constraints = prepare_constraints_for_eval(
+    const constraints = prepareConstraintsForEval(
       new Set(["A", "B"]),
       new Set(["A = B"]),
     );
@@ -26,7 +26,7 @@ Deno.test({
 Deno.test({
   name: "Constraint expression to variable",
   fn: () => {
-    const constraints = prepare_constraints_for_eval(
+    const constraints = prepareConstraintsForEval(
       new Set(["A", "B"]),
       new Set(["A + B = 2"]),
     );
@@ -40,7 +40,7 @@ Deno.test({
 Deno.test({
   name: "Constraint variable to homonymous value",
   fn: () => {
-    const constraints = prepare_constraints_for_eval(
+    const constraints = prepareConstraintsForEval(
       new Set(["A"]),
       new Set(["A = 'A'"]),
     );
@@ -54,7 +54,7 @@ Deno.test({
 Deno.test({
   name: "Constraint variable to homonymous function",
   fn: () => {
-    const constraints = prepare_constraints_for_eval(
+    const constraints = prepareConstraintsForEval(
       new Set(["A"]),
       new Set(["A = A(x)"]),
     );
@@ -69,7 +69,7 @@ Deno.test({
   name: "Constraint multiple constraints",
   fn: () => {
     const constraints = new Set(["A = B", "A = 1", "A + B = C", "C = 2"]);
-    const processed_constraints = prepare_constraints_for_eval(
+    const processed_constraints = prepareConstraintsForEval(
       new Set(["A", "B", "C"]),
       constraints,
     );
@@ -79,7 +79,7 @@ Deno.test({
 Deno.test({
   name: "Constraint with overlapping Name",
   fn: () => {
-    const constraints = prepare_constraints_for_eval(
+    const constraints = prepareConstraintsForEval(
       new Set(["A", "A10"]),
       new Set(["A = A10"]),
     );
