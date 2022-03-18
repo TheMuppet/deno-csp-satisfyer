@@ -1,5 +1,5 @@
 import { assert, assertEquals } from "../deps.ts";
-import { nQueensProblemCSP } from "../src/example-CSPs/nQueensProblem.ts";
+import { nQueensProblemCSP } from "../example-CSPs/nQueensProblem.ts";
 import { checkAllConstraints } from "../src/solver/bruteForceSolver.ts";
 import {
   applyUnaryCons,
