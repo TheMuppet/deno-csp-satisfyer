@@ -9,15 +9,8 @@ import {
   ValuePerVars,
   Variable,
 } from "./typesInterfaces.ts";
-export {
-  applyUnaryCons,
-  getValuesPerVar,
-  mostConstraintedVariable,
-  propagate,
-  solveConstraintPropagation,
-  splitUnaryCons,
-};
-function mostConstraintedVariable(
+
+export function mostConstraintedVariable(
   unassignedVars: Set<Variable>,
   valuePerVars: ValuePerVars,
 ): Variable {
@@ -35,7 +28,7 @@ function mostConstraintedVariable(
   return minVar; // the better option would be returning a rmd element with min value
 }
 
-function propagate(
+export function propagate(
   variable: Variable,
   value: Value,
   currentAssignment: Assignment,
@@ -69,8 +62,7 @@ function propagate(
   return newValues;
 }
 
-// WIP
-function backtrack(
+export function backtrack(
   assignment: Assignment,
   unassignedVars: Set<Variable>,
   csp: CSPwithVars,
@@ -116,7 +108,7 @@ function backtrack(
   return null;
 }
 
-function applyUnaryCons(
+export function applyUnaryCons(
   unaryCons: Set<ConstraintWithVars>,
   valuePerVars: ValuePerVars,
 ): ValuePerVars {
@@ -135,7 +127,7 @@ function applyUnaryCons(
   return valuePerVars;
 }
 
-function splitUnaryCons(
+export function splitUnaryCons(
   constraints: Set<ConstraintWithVars>,
 ): [Set<ConstraintWithVars>, Set<ConstraintWithVars>] {
   const unaryCons: Set<ConstraintWithVars> = new Set();
@@ -151,7 +143,7 @@ function splitUnaryCons(
   return [unaryCons, otherCons];
 }
 
-function getValuesPerVar(csp: CSP): ValuePerVars {
+export function getValuesPerVar(csp: CSP): ValuePerVars {
   const valuePerVars: ValuePerVars = {};
   csp.variables.forEach(function (variable) {
     const cspVal = csp.values;
@@ -160,7 +152,7 @@ function getValuesPerVar(csp: CSP): ValuePerVars {
   return valuePerVars;
 }
 
-function solveConstraintPropagation(
+export function solveConstraintPropagation(
   csp: CSP,
   solutionProcessor?: SolutionProcessor,
 ): Assignment | null {

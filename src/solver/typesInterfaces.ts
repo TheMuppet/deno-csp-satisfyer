@@ -1,36 +1,25 @@
-export type {
-  Assignment,
-  Constraint,
-  ConstraintWithVars,
-  CSP,
-  CSPwithVars,
-  SolutionProcessor,
-  Value,
-  ValuePerVars,
-  Variable,
-};
-type Assignment = {
+export type Assignment = {
   [key: string]: number | string;
 };
-type Variable = string;
-type Value = number | string;
-type Constraint = string;
+export type Variable = string;
+export type Value = number | string;
+export type Constraint = string;
 
-type ValuePerVars = { [key: Variable]: Set<Value> };
+export type ValuePerVars = { [key: Variable]: Set<Value> };
 
-type ConstraintWithVars = [Constraint, Set<Variable>];
-type CSP = {
+export type ConstraintWithVars = [Constraint, Set<Variable>];
+export type CSP = {
   variables: Set<Variable>;
   values: Set<Value>;
   constraints: Set<Constraint>;
 };
 
-type CSPwithVars = {
+export type CSPwithVars = {
   variables: Set<string>;
   values: Set<number | string>;
   constraints: Set<[string, Set<string>]>;
 };
 
-interface SolutionProcessor {
+export interface SolutionProcessor {
   processSolution(assignment: Assignment): void;
 }
