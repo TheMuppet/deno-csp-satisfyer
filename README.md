@@ -2,6 +2,22 @@
     <img src="https://github.com/TheMuppet/deno-csp-satisfyer/blob/db41054790bc91c1904e00f87aa7ac84fcb7d5b4/logo.png" alt="logo">
 </div>
 
+---
+
+<div align='center'>
+    <a href="https://github.com/TheMuppet/deno-csp-satisfyer/releases">
+    <img src="https://img.shields.io/github/release/Naereen/StrapDown.js.svg" />
+  </a>
+  <a href="https://github.com/TheMuppet/deno-csp-satisfyer/blob/ef60252f21f42963075d8ae6eb32d36ac3018250/LICENSE">
+    <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" />
+  </a>
+</div>
+<div align='center'>
+    <a href="https://github.com/TheMuppet/deno-csp-satisfyer/actions">
+    <img src="https://github.com/TheMuppet/deno-csp-satisfyer/actions/workflows/deno.yml/badge.svg" />
+  </a>
+</div>
+
 ## About
 
 Satisfyer is a Deno module that allows you to solve a so-called
