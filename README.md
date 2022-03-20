@@ -6,7 +6,7 @@
 
 <div align='center'>
     <a href="https://github.com/TheMuppet/deno-csp-satisfyer/releases">
-    <img src="https://img.shields.io/github/release/Naereen/StrapDown.js.svg" />
+    <img src="https://img.shields.io/github/v/release/TheMuppet/deno-csp-satisfyer.svg" />
   </a>
   <a href="https://github.com/TheMuppet/deno-csp-satisfyer/blob/ef60252f21f42963075d8ae6eb32d36ac3018250/LICENSE">
     <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" />
