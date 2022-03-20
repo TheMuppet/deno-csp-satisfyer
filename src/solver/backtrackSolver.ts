@@ -6,7 +6,7 @@ import {
   CSPwithVars,
   Value,
   Variable,
-} from "./typesInterfaces.ts";
+} from "./types.ts";
 import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
 
 export function isConsistent(

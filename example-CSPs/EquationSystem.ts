@@ -1,4 +1,4 @@
-import { CSP } from "../src/solver/typesInterfaces.ts";
+import { CSP } from "../src/solver/types.ts";
 
 export function equationSystemCSP(a: number, b: number): CSP {
   const variables = new Set(["a", "b"]);

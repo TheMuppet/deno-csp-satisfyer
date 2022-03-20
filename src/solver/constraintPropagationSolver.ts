@@ -8,7 +8,7 @@ import {
   Value,
   ValuePerVars,
   Variable,
-} from "./typesInterfaces.ts";
+} from "./types.ts";
 
 export function mostConstraintedVariable(
   unassignedVars: Set<Variable>,

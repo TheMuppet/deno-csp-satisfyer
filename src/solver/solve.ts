@@ -3,7 +3,7 @@ import { validateVariables } from "../utils.ts";
 import { solveBacktrack } from "./backtrackSolver.ts";
 import { solveBruteForce } from "./bruteForceSolver.ts";
 import { solveConstraintPropagation } from "./constraintPropagationSolver.ts";
-import { Assignment, CSP } from "./typesInterfaces.ts";
+import { Assignment, CSP } from "./types.ts";
 const sovlerObj = {
   "bruteforce": solveBruteForce,
   "backtrack": solveBacktrack,

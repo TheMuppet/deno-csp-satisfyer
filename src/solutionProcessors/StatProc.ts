@@ -1,4 +1,4 @@
-import { Assignment, Value, Variable } from "../solver/typesInterfaces.ts";
+import { Assignment, Value, Variable } from "../solver/types.ts";
 import { SolutionProcessor } from "./SolutionProcessors.ts";
 
 export class StatProc implements SolutionProcessor {

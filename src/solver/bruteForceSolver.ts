@@ -1,5 +1,5 @@
 import { arbSet } from "../utils.ts";
-import { Assignment, Constraint, CSP, Variable } from "./typesInterfaces.ts";
+import { Assignment, Constraint, CSP, Variable } from "./types.ts";
 import { preprocessCsp } from "../utils.ts";
 import { SolutionProcessor } from "../solutionProcessors/SolutionProcessors.ts";
 

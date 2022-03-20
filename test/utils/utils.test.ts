@@ -3,7 +3,7 @@ import {
   Constraint,
   ConstraintWithVars,
   Variable,
-} from "../../src/solver/typesInterfaces.ts";
+} from "../../src/solver/types.ts";
 import {
   arbitrary,
   arbSet,

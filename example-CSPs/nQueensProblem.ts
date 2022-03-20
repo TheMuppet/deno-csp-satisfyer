@@ -1,4 +1,4 @@
-import { CSP } from "../src/solver/typesInterfaces.ts";
+import { CSP } from "../src/solver/types.ts";
 
 export function nQueensProblemCSP(n: number) {
   const variables = new Set(Array.from({ length: n }, (_, i) => `V${i + 1}`));

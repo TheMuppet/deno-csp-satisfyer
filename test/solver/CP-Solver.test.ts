@@ -8,11 +8,7 @@ import {
   propagate,
   splitUnaryCons,
 } from "../../src/solver/constraintPropagationSolver.ts";
-import {
-  Assignment,
-  CSP,
-  CSPwithVars,
-} from "../../src/solver/typesInterfaces.ts";
+import { Assignment, CSP, CSPwithVars } from "../../src/solver/types.ts";
 import {
   arbSet,
   getCSPwithVars,

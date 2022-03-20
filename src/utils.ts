@@ -4,7 +4,7 @@ import {
   CSP,
   CSPwithVars,
   Variable,
-} from "./solver/typesInterfaces.ts";
+} from "./solver/types.ts";
 
 export function arbitrary(array: Array<string>): string {
   const random = Math.floor(Math.random() * array.length);
