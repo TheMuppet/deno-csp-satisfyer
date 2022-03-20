@@ -1,5 +1,6 @@
-
-![](logo.png)
+<div align="center">
+    <img src="https://github.com/TheMuppet/deno-csp-satisfyer/blob/db41054790bc91c1904e00f87aa7ac84fcb7d5b4/logo.png" alt="logo">
+</div>
 
 ## About
 
