@@ -70,5 +70,5 @@ const csp: CSP = {
 };
 
 const solution = solve(csp);
-const solution = solve(csp, bruteforce);
+const solution = solve(csp, "bruteforce");
 ```
