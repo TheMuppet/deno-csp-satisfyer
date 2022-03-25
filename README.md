@@ -66,7 +66,7 @@ const csp: CSP = {
   constraints: constraints,
 };
 
-// const solution = solve(csp);
-const solution = solve(csp, "bruteforce");
+const solution = solve(csp);
+// const solution = solve(csp, "bruteforce");
 console.log(solution);
 ```
