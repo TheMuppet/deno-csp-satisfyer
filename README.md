@@ -70,4 +70,5 @@ const solution = solve(csp);
 // const solution = solve(csp, "bruteforce");
 console.log(solution);
 ```
-:warning: This module uses the 'eval' function, so you should implement input validation. :warning: 
+:warning: This module uses the 'eval' function, so you should implement input
+validation. :warning: 
